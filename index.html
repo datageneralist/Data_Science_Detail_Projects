@@ -1,18 +1,33 @@
+<!DOCTYPE html>
 <html>
+      <head>
+            <title>Welcome to the GDP Interactive Visualization Tool!</title>
+            <meta charset="UTF-8">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+            <script src="https://code.highcharts.com/highcharts.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.5.3/numeral.min.js"></script>
+            <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.11/js/jquery.dataTables.min.js"></script>
+			<link rel="stylesheet" href="GDPmock1.css">
+            <script src="interactive_viz.js"></script>
+      </head>
+      <body>
+            <h1>Hello World</h1>
+			<h3> Steps to Use the Visualization Tool </h3>
+				<ol class="list"> <li> Select your desired year and quarter of GDP data </li>
+					<li> Select which Census Economic Surveys you want to include. </li>
+					<li> Watch your visualization come alive! </li> 
+				</ol>
 
-<head>
-<link rel="stylesheet" type="text/css" href="GDPmock1.css">
-
-<title>Welcome to the GDP Interactive Visualization Tool!</title></head>
-
-<body>
-<h3> Steps to Use the Visualization Tool </h3>
-<ul> <li> Select your desired year and quarter of GDP data </li>
-<li> Select which Census Economic Surveys you want to include. </li>
-<li> Watch your visualization come alive! THis is a test </li> </ul>
-
-<script type="text/javascript" src="script.js"></script> 
-
-
-</body>
+			<table id="tbl">
+				<tr>
+					<th>TimePeriod</th>
+					<th>LineDescription</th>
+					<th>DataValue</th>
+				</tr>
+			</table>
+      </body>
 </html>
