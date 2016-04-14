@@ -14,7 +14,8 @@ var api_url = "http://www.bea.gov/api/data?&UserID="+user_id+"&method=GetData&Da
 
 $(document).ready(function(){
 	var myDataArray = [];
-	var gdpData = []; 
+	var componentArray = []; 
+	var pce = [];
     $.ajax({
         url: api_url,
         dataType: 'jsonp',
@@ -25,15 +26,113 @@ $(document).ready(function(){
 			var dataArray = response.BEAAPI.Results.Data;
 			for(var i=0; i<dataArray.length; i++){
 				var segment = dataArray[i];
-				
-				$('body').append('<p>'+segment.DataValue+'</p>');
-				/* Create an array that has one object. Inside the object
-				will be arrays. Each array will have the DataValue, 
-				LineDescription and TimePeriod values. Array methods. */
+				componentArray.push(dataArray[i].LineDescription, dataArray[i].TimePeriod, dataArray[i].DataValue);
 
+					};
+			for (var i=0; i<componentArray.length; i+=3) {
+				$('body').append('<p>'+componentArray[i]+" "+componentArray[i+1]+" "+componentArray[i+2]+'</p>');
+
+			};
+
+			for(var i=0; i<dataArray.length; i++){
+				if (componentArray[i] === 'Personal consumption expenditures') {
+					pce.push(componentArray[i+2]);
+				};
+			};
+
+$(function () {
+
+			for(var i=0; i<dataArray.length; i++){
+				if (componentArray[i] === 'Personal consumption expenditures') {
+					pce.push(componentArray[i+2]);
+					//pce[i].str.replace('\"', ' ');
+				};
+			};
+			// Change pce array from strings to integers
+			//pce = pce.map();
+			/*var pce2 = [];
+			for (var i = 0;i < pce.length; i++) {
+				pce2[i] = parseInt(pce[i]);
 			}
+			*/
+			alert(pce);
+
+			/*var pce1 = pce.map(function(element){
+				 console.log(element);
+			})
+			alert(pce1);
+			*/
+
+    $('#container').highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: 'How does U.S Census Bureau data fit into the Bureau of Economic Analysis GDP Calculation?'
+        },
+        subtitle: {
+            text: 'Sources: Census.gov and Bea.gov'
+        },
+        xAxis: {
+            categories: ['2014Q1', '2014Q2', '2014Q3', '2014Q4'],
+            tickmarkPlacement: 'on',
+            title: {
+                enabled: false
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Billions (Real 2009 Chained U.S Dollars)'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value / 1000;
+                }
+            }
+        },
+        tooltip: {
+            shared: true,
+            valueSuffix: ' millions'
+        },
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        },
+        series: [{
+            name: 'Consumption Expenditures',
+            data: pce
+        }, {
+            name: 'Gross Private Domestic Investment',
+            data: [106, 107, 111, 133, 221, 767, 1766]
+        }, {
+            name: 'Net Exports of Goods and Services',
+            data: [163, 203, 276, 408, 547, 729, 628]
+        }, {
+            name: 'Government Consumption and Gross Investment',
+            data: [18, 31, 54, 156, 339, 818, 1201]
+        }]
+    });
+});
+
+
+			
+			
 		});
 		function api_test () {
 };
+
+//Stacked Area Chart from High Charts
+
+ 
+
+
+
 	
 });
