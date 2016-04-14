@@ -41,13 +41,19 @@ $(document).ready(function(){
 			};
 
 $(function () {
-
+			var pce=[];
 			for(var i=0; i<dataArray.length; i++){
 				if (componentArray[i] === 'Personal consumption expenditures') {
 					pce.push(componentArray[i+2]);
-					//pce[i].str.replace('\"', ' ');
+					pce[i].replaceAll(",", "");
+
 				};
+
 			};
+
+			//Pseudo Code: Replace all commas with nothing. Then parseInt to turn
+			// elements of the array into numbers so HighCharts can read the PCE data!
+
 			// Change pce array from strings to integers
 			//pce = pce.map();
 			/*var pce2 = [];
