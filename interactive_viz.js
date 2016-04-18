@@ -25,7 +25,7 @@ $(document).ready(function(){
 			var dataArray = response.BEAAPI.Results.Data;
 			for (var i=0; i<dataArray.length; i++) {
 				var segment = dataArray[i];
-				componentArray.push(dataArray[i].LineDescription, dataArray[i].TimePeriod, dataArray[i].DataValue);
+				componentArray.push(dataArray[i].SeriesCode, dataArray[i].TimePeriod, dataArray[i].DataValue);
 
 			};
 
@@ -38,25 +38,55 @@ $(document).ready(function(){
 			var goods = [];
 			var durable_goods = [];
 			var nondurable_goods = [];
+			var c_services = [];
+			var private_investment = [];
+			var fixed_investment = [];
 			for(var i=0; i<dataArray.length; i++) {
+				
 				//Define 2014 data sets based on the Line Description
-                if (componentArray[i] === 'Personal consumption expenditures') {
-                    componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                if (componentArray[i] === 'DPCERC') {
+                    //componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     pce.push(componentArray[i+2]);
                 }
-                else if (componentArray[i] === 'Goods') {
-                	componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                else if (componentArray[i] === 'DGDSRC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     goods.push(componentArray[i+2]);
-                };           
+                }
+                else if (componentArray[i] === 'DDURRC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    durable_goods.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'DNDGRC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    nondurable_goods.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'DSERRC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    c_services.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'A006RC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    private_investment.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'A007RC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    fixed_investment.push(componentArray[i+2]);
+                };
+
+                
+
             };
             //Change Personal Consumption Expenditure Values from Strings to Integers
             for (var i = 0; i < pce.length; i++) {
-            	pce[i] = parseInt(pce[i]);
-            	goods[i] = parseInt(goods[i]);
+            	pce[i] = parseFloat(pce[i]);
+            	goods[i] = parseFloat(goods[i]);
+            	durable_goods[i] = parseFloat(durable_goods[i]);
+            	nondurable_goods[i] = parseFloat(nondurable_goods[i]);
+            	c_services[i] = parseFloat(c_services[i]);
+            	private_investment[i] = parseFloat(private_investment[i]);
+            	fixed_investment[i] = parseFloat(fixed_investment[i]);
+
             };
-
-
-
 
 			
 			$(function () {
@@ -83,9 +113,9 @@ $(document).ready(function(){
                 	text: 'Billions (Real 2009 Chained U.S Dollars)'
             	},
             	labels: {
-                	formatter: function () {
-                    	return this.value / 1000;
-               		 	}
+                	/*formatter: function () {
+                    	return this.value;
+               		 	}*/
             	}
        	 		},
         		tooltip: {
@@ -105,16 +135,32 @@ $(document).ready(function(){
        		 	},
        	 		series: [{
             		name: 'Consumption Expenditures',
-            		data: pce
+            		data: pce,
+            		color: '#b3c900'
+            		//lineColor:
+            		
         		}, 		{
             		name: 'Goods',
-            		data: goods
+            		data: goods,
+            		color: "#e3ff00"
         		}, 		{
-            		name: 'Net Exports of Goods and Services',
-            		data: [163, 203, 276, 408, 547, 729, 628]
+            		name: 'Durable Goods',
+            		data: durable_goods,
+            		color: '#f2ff88'
         		}, 		{
-            		name: 'Government Consumption and Gross Investment',
-            		data: [18, 31, 54, 156, 339, 818, 1201]
+            		name: 'Nondurable Goods',
+            		data: nondurable_goods,
+            		color: '#f4ff99'
+            	},		{
+            		name: 'Services',
+            		data: c_services,
+            		color: '#f9ffc8'
+            	},		{
+            		name: 'Gross Domestic Private Investment',
+            		data: private_investment
+            	},		{
+            		name: 'Fixed Investment',
+            		data: fixed_investment
         	}]
    		 });
 	
@@ -133,14 +179,12 @@ $(document).ready(function(){
 			chart;
 	});
 	*/
-alert("Highcharts function ran");
-	});
+	});		
 
-		//var chart = $('#container').highcharts();
-		
+		//var chart = $('#container').highcharts;
 
-			
-			
+
+
 		function api_test () {
 		};
 
@@ -150,3 +194,4 @@ alert("Highcharts function ran");
 });
 
 });
+
