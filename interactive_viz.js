@@ -41,41 +41,59 @@ $(document).ready(function(){
 			var c_services = [];
 			var private_investment = [];
 			var fixed_investment = [];
+			var nonres_investment = [];
+			var structures = [];
+			var equip_software = [];
+
 			for(var i=0; i<dataArray.length; i++) {
 				
 				//Define 2014 data sets based on the Line Description
+				// Personal Consumption Expenditures
                 if (componentArray[i] === 'DPCERC') {
                     //componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     pce.push(componentArray[i+2]);
-                }
+                } // Goods
                 else if (componentArray[i] === 'DGDSRC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     goods.push(componentArray[i+2]);
-                }
+                } // Durable Goods
                 else if (componentArray[i] === 'DDURRC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     durable_goods.push(componentArray[i+2]);
-                }
+                } // Nondurable Goods
                 else if (componentArray[i] === 'DNDGRC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     nondurable_goods.push(componentArray[i+2]);
-                }
+                } // Services
                 else if (componentArray[i] === 'DSERRC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     c_services.push(componentArray[i+2]);
-                }
+                } // Gross domestic private investment
                 else if (componentArray[i] === 'A006RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     private_investment.push(componentArray[i+2]);
-                }
+                } // Fixed Investment
                 else if (componentArray[i] === 'A007RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     fixed_investment.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'A008RC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    nonres_investment.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'B009RC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    structures.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'B010RC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    equip_software.push(componentArray[i+2]);
                 };
 
-                
 
             };
+
+
             //Change Personal Consumption Expenditure Values from Strings to Integers
             for (var i = 0; i < pce.length; i++) {
             	pce[i] = parseFloat(pce[i]);
@@ -85,13 +103,16 @@ $(document).ready(function(){
             	c_services[i] = parseFloat(c_services[i]);
             	private_investment[i] = parseFloat(private_investment[i]);
             	fixed_investment[i] = parseFloat(fixed_investment[i]);
-
+            	nonres_investment[i] = parseFloat(nonres_investment[i]);
+            	structures[i] = parseFloat(structures[i]);
+            	equip_software[i] = parseFloat(equip_software[i]);
+            	//fixed_investment[i] = parseFloat(fixed_investment[i]);
             };
 
 			
 			$(function () {
 			
-					$('#container').highcharts({
+					$('#area_chart').highcharts({
        			 	chart: {
            		 	type: 'area'
         			},
@@ -136,53 +157,145 @@ $(document).ready(function(){
        	 		series: [{
             		name: 'Consumption Expenditures',
             		data: pce,
-            		color: '#b3c900'
+            		color: "#ffffff",
+            		stacking: null,
+            		legendIndex: 3
+            		//visible: false
             		//lineColor:
             		
         		}, 		{
-            		name: 'Goods',
-            		data: goods,
-            		color: "#e3ff00"
-        		}, 		{
             		name: 'Durable Goods',
             		data: durable_goods,
-            		color: '#f2ff88'
+            		color: '#fcfdbb',
+            		//lineColor: '#b3c900',
+            		index: 8,
+            		legendIndex: 0
         		}, 		{
             		name: 'Nondurable Goods',
             		data: nondurable_goods,
-            		color: '#f4ff99'
+            		color: '#feff8d',
+            		index: 7,
+            		legendIndex: 1
             	},		{
             		name: 'Services',
             		data: c_services,
-            		color: '#f9ffc8'
+            		color: '#feff54',
+            		lineColor: '#ecee00',
+            		index: 6,
+            		legendIndex: 2
             	},		{
             		name: 'Gross Domestic Private Investment',
-            		data: private_investment
+            		data: private_investment,
+            		index: 5,
+            		legendIndex: 8
             	},		{
             		name: 'Fixed Investment',
-            		data: fixed_investment
+            		data: fixed_investment,
+            		index: 4,
+            		legendIndex: 7
+            	},		{
+            		name: 'Nonresidential Investment',
+            		data: nonres_investment,
+            		index: 3,
+            		legendIndex: 6
+            	},		{
+            		name: 'Structures',
+            		data: structures,
+            		index: 2,
+            		legendIndex: 4
+            	},		{
+            		name: 'Equipment and Software',
+            		data: equip_software,
+            		index: 1,
+            		legendIndex: 5
         	}]
    		 });
 	
-
-		// the button action
-/*
-	$('#button').click(function() {
-			var mySeries = [];
-			for (var i = 0; i < pce.length; i++) {
-			mySeries.push(pce[i]);
-			};
-			var chart = $('#container').highcharts;
-			chart.series.data.setData(mySeries);
-			alert(chart.series.data[0]);
-			alert(pce);
-			chart;
 	});
-	*/
-	});		
+
+				// Tree Map
+
+				$(function () {
+    $('#tree_map').highcharts({
+        series: [{
+            type: "treemap",
+            layoutAlgorithm: 'stripes',
+            alternateStartingDirection: true,
+            levels: [{
+                level: 1,
+                layoutAlgorithm: 'sliceAndDice',
+                dataLabels: {
+                    enabled: true,
+                    align: 'left',
+                    verticalAlign: 'top',
+                    style: {
+                        fontSize: '15px',
+                        fontWeight: 'bold'
+                    }
+                }
+            }],
+            data: [{
+                id: 'A',
+                name: 'Apples',
+                color: "#EC2500"
+            }, {
+                id: 'B',
+                name: 'Bananas',
+                color: "#ECE100"
+            }, {
+                id: 'O',
+                name: 'Oranges',
+                color: '#EC9800'
+            }, {
+                name: 'Anne',
+                parent: 'A',
+                value: 5
+            }, {
+                name: 'Rick',
+                parent: 'A',
+                value: 3
+            }, {
+                name: 'Peter',
+                parent: 'A',
+                value: 4
+            }, {
+                name: 'Anne',
+                parent: 'B',
+                value: 4
+            }, {
+                name: 'Rick',
+                parent: 'B',
+                value: 10
+            }, {
+                name: 'Peter',
+                parent: 'B',
+                value: 1
+            }, {
+                name: 'Anne',
+                parent: 'O',
+                value: 1
+            }, {
+                name: 'Rick',
+                parent: 'O',
+                value: 3
+            }, {
+                name: 'Peter',
+                parent: 'O',
+                value: 3
+            }, {
+                name: 'Susanne',
+                parent: 'Kiwi',
+                value: 2,
+                color: '#9EDE00'
+            }]
+        }],
+        title: {
+            text: 'Fruit consumption'
+        }
+    });
+});		
 
 		//var chart = $('#container').highcharts;
-
 
 
 		function api_test () {
@@ -194,4 +307,6 @@ $(document).ready(function(){
 });
 
 });
+
+
 
