@@ -43,7 +43,10 @@ $(document).ready(function(){
 			var fixed_investment = [];
 			var nonres_investment = [];
 			var structures = [];
-			var equip_software = [];
+			var equipment = [];
+			var IP_software = [];
+			var residential = [];
+			var change_privateinv = [];
 
 			for(var i=0; i<dataArray.length; i++) {
 				
@@ -85,9 +88,21 @@ $(document).ready(function(){
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     structures.push(componentArray[i+2]);
                 }
-                else if (componentArray[i] === 'B010RC') {
+                else if (componentArray[i] === 'Y033RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    equip_software.push(componentArray[i+2]);
+                    equipment.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'Y001RC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    IP_software.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'A011RC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    residential.push(componentArray[i+2]);
+                }
+                else if (componentArray[i] === 'A014RC') {
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                    change_privateinv.push(componentArray[i+2]);
                 };
 
 
@@ -105,7 +120,10 @@ $(document).ready(function(){
             	fixed_investment[i] = parseFloat(fixed_investment[i]);
             	nonres_investment[i] = parseFloat(nonres_investment[i]);
             	structures[i] = parseFloat(structures[i]);
-            	equip_software[i] = parseFloat(equip_software[i]);
+            	equipment[i] = parseFloat(equipment[i]);
+            	IP_software[i] = parseFloat(IP_software[i]);
+            	residential[i] = parseFloat(residential[i]);
+            	change_privateinv[i] = parseFloat(change_privateinv[i]);
             	//fixed_investment[i] = parseFloat(fixed_investment[i]);
             };
 
@@ -155,7 +173,7 @@ $(document).ready(function(){
             	}
        		 	},
        	 		series: [{
-            		name: 'Consumption Expenditures',
+            		name: 'Personal Consumption Expenditures',
             		data: pce,
             		color: "#ffffff",
             		stacking: null,
@@ -204,8 +222,8 @@ $(document).ready(function(){
             		index: 2,
             		legendIndex: 4
             	},		{
-            		name: 'Equipment and Software',
-            		data: equip_software,
+            		name: 'Equipment',
+            		data: equipment,
             		index: 1,
             		legendIndex: 5
         	}]
@@ -235,37 +253,37 @@ $(document).ready(function(){
                 }
             }],
             data: [{
-                id: 'A',
-                name: 'Apples',
+                id: 'pce',
+                name: 'Personal Consumption Expenditures',
                 color: "#EC2500"
             }, {
-                id: 'B',
-                name: 'Bananas',
+                id: 'private_investment',
+                name: 'Gross Domestic Private Investment',
                 color: "#ECE100"
             }, {
                 id: 'O',
                 name: 'Oranges',
                 color: '#EC9800'
             }, {
-                name: 'Anne',
-                parent: 'A',
-                value: 5
+                name: 'Durable Goods',
+                parent: 'pce',
+                value: durable_goods[0]
             }, {
-                name: 'Rick',
-                parent: 'A',
-                value: 3
+                name: 'Nondurable Goods',
+                parent: 'pce',
+                value: nondurable_goods[0]
             }, {
-                name: 'Peter',
-                parent: 'A',
-                value: 4
+                name: 'Services',
+                parent: 'pce',
+                value: c_services[0]
             }, {
-                name: 'Anne',
-                parent: 'B',
-                value: 4
+                name: 'Fixed Investment',
+                parent: 'private_investment',
+                value: fixed_investment[0]
             }, {
-                name: 'Rick',
-                parent: 'B',
-                value: 10
+                name: 'Change in Private Inventories',
+                parent: 'private_investment',
+                value: change_privateinv[0]
             }, {
                 name: 'Peter',
                 parent: 'B',
@@ -290,7 +308,7 @@ $(document).ready(function(){
             }]
         }],
         title: {
-            text: 'Fruit consumption'
+            text: 'How does U.S Census Bureau data fit into the Bureau of Economic Analysis GDP Calculation?'
         }
     });
 });		
