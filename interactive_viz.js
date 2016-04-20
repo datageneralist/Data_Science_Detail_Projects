@@ -47,6 +47,18 @@ $(document).ready(function(){
 			var IP_software = [];
 			var residential = [];
 			var change_privateinv = [];
+			var net_exports = [];
+			var trade_exports = [];
+			var ex_goods = [];
+			var ex_services = [];
+			var trade_imports = [];
+			var im_goods = [];
+			var im_services = [];
+			var govt_spending = [];
+			var federal = [];
+			var national_defense = [];
+			var non_defense = [];
+			var state_local = [];
 
 			var SeriesCode = function(array, code) {
 				for(var i=0; i<componentArray.length; i++) {
@@ -73,10 +85,18 @@ $(document).ready(function(){
 			SeriesCode(IP_software, 'Y001RC');
 			SeriesCode(residential, 'A011RC');
 			SeriesCode(change_privateinv, 'A014RC');
-			SeriesCode(change_privateinv, 'A014RC');
-			SeriesCode(change_privateinv, 'A014RC');
-			SeriesCode(change_privateinv, 'A014RC');
-			SeriesCode(change_privateinv, 'A014RC');
+			SeriesCode(net_exports, 'A019RC');
+			SeriesCode(trade_exports, 'B020RC');
+			SeriesCode(ex_goods, 'A253RC');
+			SeriesCode(ex_services, 'A646RC');
+			SeriesCode(trade_imports, 'B021RC');
+			SeriesCode(im_goods, 'A255RC');
+			SeriesCode(im_services, 'B656RC');
+			SeriesCode(govt_spending, 'A822RC');
+			SeriesCode(federal, 'A823RC');
+			SeriesCode(national_defense, 'A824RC');
+			SeriesCode(non_defense, 'A825RC');
+			SeriesCode(state_local, 'A829RC');
 
 
 			
@@ -205,28 +225,18 @@ $(document).ready(function(){
                 }
             }],
             data: [{
-                id: 'pce',
+                //id: 'pce',
                 name: 'Personal Consumption Expenditures',
-                color: "#EC2500"
-                //allowDrillToNode: true
+                //color: "#EC2500",
+                //allowDrillToNode: true,
+                value: pce[0],
+                drilldown: 'goods_services'
             }, {
                 id: 'private_investment',
                 name: 'Gross Domestic Private Investment',
                 color: "#ECE100"
                 //allowDrillToNode: true
-            }, {
-                id: 'O',
-                name: 'Oranges',
-                color: '#EC9800'
-            }, {
-                name: 'Durable Goods',
-                parent: 'pce',
-                value: durable_goods[0]
-            }, {
-                name: 'Nondurable Goods',
-                parent: 'pce',
-                value: nondurable_goods[0]
-            }, {
+            }/*, {
                 name: 'Services',
                 parent: 'pce',
                 value: c_services[0]
@@ -238,28 +248,19 @@ $(document).ready(function(){
                 name: 'Change in Private Inventories',
                 parent: 'private_investment',
                 value: change_privateinv[0]
-            }, {
-                name: 'Peter',
-                parent: 'B',
-                value: 1
-            }, {
-                name: 'Anne',
-                parent: 'O',
-                value: 1
-            }, {
-                name: 'Rick',
-                parent: 'O',
-                value: 3
-            }, {
-                name: 'Peter',
-                parent: 'O',
-                value: 3
-            }, {
-                name: 'Susanne',
-                parent: 'Kiwi',
-                value: 2,
-                color: '#9EDE00'
-            }]
+            }*/]
+        }],
+        drilldown: [{
+        		id: 'goods_services',
+        		name: 'Goods and Services',
+        		//parent: 'pce',
+       			data: [6
+       				//['Goods', goods[0]],
+       				//['Services', c_services[0]]
+       				]
+
+
+
         }],
         title: {
             text: 'How does U.S Census Bureau data fit into the Bureau of Economic Analysis GDP Calculation?'
