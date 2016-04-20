@@ -30,7 +30,7 @@ $(document).ready(function(){
 			};
 
 			for (var i=0; i<componentArray.length; i+=3) {
-				$('body').append('<p>'+componentArray[i]+" "+componentArray[i+1]+" "+componentArray[i+2]+'</p>');
+				$('body').append('<p>'+componentArray[i]+componentArray[i+1]+" "+componentArray[i+2]+'</p>');
 
 			};
 
@@ -48,104 +48,36 @@ $(document).ready(function(){
 			var residential = [];
 			var change_privateinv = [];
 
-			for(var i=0; i<dataArray.length; i++) {
-				
-				//Define 2014 data sets based on the Line Description
-				// Personal Consumption Expenditures
-                if (componentArray[i] === 'DPCERC') {
-                    //componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    pce.push(componentArray[i+2]);
-                    //alert("this is pce");
-                    //alert(pce);
-                } // Goods
-                else if (componentArray[i] === 'DGDSRC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "")
-                    goods.push(componentArray[i+2]);
-                    //alert("this is goods");
-             		//alert(goods);
-                } // Durable Goods
-                else if (componentArray[i] === 'DDURRC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    durable_goods.push(componentArray[i+2]);
-                    //alert("this is durable goods");
-                    //alert(durable_goods);
-                } // Nondurable Goods
-                else if (componentArray[i] === 'DNDGRC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    nondurable_goods.push(componentArray[i+2]);
-                    //alert("this is nondurable goods");
-                    //alert(nondurable_goods);
-                } // Services
-                else if (componentArray[i] === 'DSERRC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    c_services.push(componentArray[i+2]);
-                    //alert("this is consumption services");
-                    //alert(c_services);
-                } // Gross domestic private investment
-                else if (componentArray[i] === 'A006RC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    private_investment.push(componentArray[i+2]);
-                    //alert("this is private investment");
-                    //alert(private_investment);
-                } // Fixed Investment
-                else if (componentArray[i] === 'A007RC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    fixed_investment.push(componentArray[i+2]);
-                    //alert("this is fixed investment");
-                    //alert(fixed_investment);
-                }
-                else if (componentArray[i] === 'A008RC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    nonres_investment.push(componentArray[i+2]);
-                    //alert("this is nonres investment");
-                    //alert(nonres_investment);
-                }
-                else if (componentArray[i] === 'B009RC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    structures.push(componentArray[i+2]);
-                    alert("this is structures");
-                    alert(structures);
+			var SeriesCode = function(array, code) {
+				for(var i=0; i<componentArray.length; i++) {
+					if (componentArray[i] === code) {
+					componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+					array.push(componentArray[i+2]);
+					}
+				};
+				for (var i = 0; i < array.length; i++) {
+            		array[i] = parseFloat(array[i]);
+				};
+			};
+			
+			SeriesCode(pce, 'DPCERC');
+			SeriesCode(goods, 'DGDSRC');
+			SeriesCode(durable_goods, 'DDURRC');
+			SeriesCode(nondurable_goods, 'DNDGRC');
+			SeriesCode(c_services, 'DSERRC');
+			SeriesCode(private_investment, 'A006RC');
+			SeriesCode(fixed_investment, 'A007RC');
+			SeriesCode(nonres_investment, 'A008RC');
+			SeriesCode(structures, 'B009RC');
+			SeriesCode(equipment, 'Y033RC');
+			SeriesCode(IP_software, 'Y001RC');
+			SeriesCode(residential, 'A011RC');
+			SeriesCode(change_privateinv, 'A014RC');
+			SeriesCode(change_privateinv, 'A014RC');
+			SeriesCode(change_privateinv, 'A014RC');
+			SeriesCode(change_privateinv, 'A014RC');
+			SeriesCode(change_privateinv, 'A014RC');
 
-                }
-                else if (componentArray[i] === 'Y033RC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    equipment.push(componentArray[i+2]);
-                    alert(equipment);
-                }
-                else if (componentArray[i] === 'Y001RC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    //IP_software.push(componentArray[i+2]);
-                }
-                else if (componentArray[i] === 'A011RC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    residential.push(componentArray[i+2]);
-                    alert(residential);
-                }
-                else if (componentArray[i] === 'A014RC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    change_privateinv.push(componentArray[i+2]);
-                };
-
-
-            };
-
-            	
-            //Change Personal Consumption Expenditure Values from Strings to Integers
-            for (var i = 0; i < pce.length; i++) {
-            	pce[i] = parseFloat(pce[i]);
-            	goods[i] = parseFloat(goods[i]);
-            	durable_goods[i] = parseFloat(durable_goods[i]);
-            	nondurable_goods[i] = parseFloat(nondurable_goods[i]);
-            	c_services[i] = parseFloat(c_services[i]);
-            	private_investment[i] = parseFloat(private_investment[i]);
-            	fixed_investment[i] = parseFloat(fixed_investment[i]);
-            	nonres_investment[i] = parseFloat(nonres_investment[i]);
-            	structures[i] = parseFloat(structures[i]);
-            	equipment[i] = parseFloat(equipment[i]);
-            	IP_software[i] = parseFloat(IP_software[i]);
-            	residential[i] = parseFloat(residential[i]);
-            	change_privateinv[i] = parseFloat(change_privateinv[i]);
-            };
 
 			
 			$(function () {
