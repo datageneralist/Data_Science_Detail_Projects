@@ -10,7 +10,7 @@ $.getJSON('/api/events')
 // Call API Key from getKey function from another JS file.
 // Call API based on the API Key in getKey function
 getKey();
-var api_url = "http://www.bea.gov/api/data?&UserID="+user_id+"&method=GetData&DataSetName=NIPA&Year=2014&TableID=5&Frequency=Q&ResultFormat=json&jsonp=api_test";
+var api_url = "http://www.bea.gov/api/data?&UserID="+user_id+"&method=GetData&DataSetName=NIPA&Year=2014&ShowMillionsID=Y&TableID=5&Frequency=Q&ResultFormat=json&jsonp=api_test";
 
 $(document).ready(function(){
 	var myDataArray = [];
@@ -55,50 +55,71 @@ $(document).ready(function(){
                 if (componentArray[i] === 'DPCERC') {
                     //componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     pce.push(componentArray[i+2]);
+                    //alert("this is pce");
+                    //alert(pce);
                 } // Goods
                 else if (componentArray[i] === 'DGDSRC') {
-                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
+                	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "")
                     goods.push(componentArray[i+2]);
+                    //alert("this is goods");
+             		//alert(goods);
                 } // Durable Goods
                 else if (componentArray[i] === 'DDURRC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     durable_goods.push(componentArray[i+2]);
+                    //alert("this is durable goods");
+                    //alert(durable_goods);
                 } // Nondurable Goods
                 else if (componentArray[i] === 'DNDGRC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     nondurable_goods.push(componentArray[i+2]);
+                    //alert("this is nondurable goods");
+                    //alert(nondurable_goods);
                 } // Services
                 else if (componentArray[i] === 'DSERRC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     c_services.push(componentArray[i+2]);
+                    //alert("this is consumption services");
+                    //alert(c_services);
                 } // Gross domestic private investment
                 else if (componentArray[i] === 'A006RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     private_investment.push(componentArray[i+2]);
+                    //alert("this is private investment");
+                    //alert(private_investment);
                 } // Fixed Investment
                 else if (componentArray[i] === 'A007RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     fixed_investment.push(componentArray[i+2]);
+                    //alert("this is fixed investment");
+                    //alert(fixed_investment);
                 }
                 else if (componentArray[i] === 'A008RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     nonres_investment.push(componentArray[i+2]);
+                    //alert("this is nonres investment");
+                    //alert(nonres_investment);
                 }
                 else if (componentArray[i] === 'B009RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     structures.push(componentArray[i+2]);
+                    alert("this is structures");
+                    alert(structures);
+
                 }
                 else if (componentArray[i] === 'Y033RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     equipment.push(componentArray[i+2]);
+                    alert(equipment);
                 }
                 else if (componentArray[i] === 'Y001RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
-                    IP_software.push(componentArray[i+2]);
+                    //IP_software.push(componentArray[i+2]);
                 }
                 else if (componentArray[i] === 'A011RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
                     residential.push(componentArray[i+2]);
+                    alert(residential);
                 }
                 else if (componentArray[i] === 'A014RC') {
                 	//componentArray[i+2] = componentArray[i+2].replace(/\,/g, "");
@@ -108,7 +129,7 @@ $(document).ready(function(){
 
             };
 
-
+            	
             //Change Personal Consumption Expenditure Values from Strings to Integers
             for (var i = 0; i < pce.length; i++) {
             	pce[i] = parseFloat(pce[i]);
@@ -124,7 +145,6 @@ $(document).ready(function(){
             	IP_software[i] = parseFloat(IP_software[i]);
             	residential[i] = parseFloat(residential[i]);
             	change_privateinv[i] = parseFloat(change_privateinv[i]);
-            	//fixed_investment[i] = parseFloat(fixed_investment[i]);
             };
 
 			
@@ -256,10 +276,12 @@ $(document).ready(function(){
                 id: 'pce',
                 name: 'Personal Consumption Expenditures',
                 color: "#EC2500"
+                //allowDrillToNode: true
             }, {
                 id: 'private_investment',
                 name: 'Gross Domestic Private Investment',
                 color: "#ECE100"
+                //allowDrillToNode: true
             }, {
                 id: 'O',
                 name: 'Oranges',
