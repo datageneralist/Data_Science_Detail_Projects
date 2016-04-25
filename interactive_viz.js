@@ -211,6 +211,8 @@ $(document).ready(function(){
             type: "treemap",
             layoutAlgorithm: 'stripes',
             alternateStartingDirection: true,
+            allowDrillToNode: true,
+            levelIsConstant: false,
             levels: [{
                 level: 1,
                 layoutAlgorithm: 'sliceAndDice',
@@ -228,7 +230,6 @@ $(document).ready(function(){
                 //id: 'pce',
                 name: 'Personal Consumption Expenditures',
                 //color: "#EC2500",
-                //allowDrillToNode: true,
                 value: pce[0],
                 drilldown: 'goods_services'
             }, {
@@ -253,8 +254,8 @@ $(document).ready(function(){
         drilldown: [{
         		id: 'goods_services',
         		name: 'Goods and Services',
-        		//parent: 'pce',
-       			data: [6
+        		parent: 'pce',
+       			value: [6
        				//['Goods', goods[0]],
        				//['Services', c_services[0]]
        				]
