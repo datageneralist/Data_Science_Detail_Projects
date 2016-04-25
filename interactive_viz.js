@@ -10,7 +10,7 @@ $.getJSON('/api/events')
 // Call API Key from getKey function from another JS file.
 // Call API based on the API Key in getKey function
 getKey();
-var api_url = "http://www.bea.gov/api/data?&UserID="+user_id+"&method=GetData&DataSetName=NIPA&Year=2014&ShowMillionsID=Y&TableID=5&Frequency=Q&ResultFormat=json&jsonp=api_test";
+var api_url = "http://www.bea.gov/api/data?&UserID="+user_id+"&method=GetData&DataSetName=NIPA&Year=2014&ShowMillionsID=N&TableID=5&Frequency=Q&ResultFormat=json&jsonp=api_test";
 
 $(document).ready(function(){
 	var myDataArray = [];
@@ -97,6 +97,7 @@ $(document).ready(function(){
 			SeriesCode(national_defense, 'A824RC');
 			SeriesCode(non_defense, 'A825RC');
 			SeriesCode(state_local, 'A829RC');
+
 
 
 			
@@ -203,16 +204,138 @@ $(document).ready(function(){
 	
 	});
 
-				// Tree Map
+// Tree Map
 
-				$(function () {
+$(function () {
+
+	var data = {
+		'GDP': {
+			'Personal Consumption Expenditures': {
+				'Goods': {
+					'Durable Goods': durable_goods[0],
+					'Nondurable Goods': nondurable_goods[0]
+				},
+				'Consumption: Services': c_services[0]
+			},
+			'Private Investment': {
+				'Fixed Investment': {
+					'Residential': residential[0],
+					'Non Residential': {
+						'Structures': structures[0],
+						'Equipment': equipment[0],
+						'IP_software': IP_software[0]
+					}
+				},
+				'Change in Private Inventories': change_privateinv[0],
+			},
+			'Net Exports': {
+				'Exports': {
+					'Exports: Goods': ex_goods[0],
+					'Exports: Services': ex_services[0]
+				},
+				'Imports': {
+					'Imports: Goods': im_goods[0],
+					'Imports: Services': im_services[0]		
+				}
+			},
+			'Govt Spending':{
+				'Federal': {
+					'National Defense': national_defense[0],
+					'Non Defense': non_defense[0]
+				},
+				'State and Local': state_local[0]
+			}
+		},
+	},
+	points = [],
+	level_1,
+	level_2,
+	level_3,
+	level_1P,
+	level_2P,
+	level_3P,
+	level_4P,
+	level_1I = 0,
+	level_2I,
+	level_3I,
+	level_4I
+
+for (level_1 in data) {
+        if (data.hasOwnProperty(level_1)) {
+            level_1P = {
+                id: 'id_' + level_1I,
+                name: level_1,
+            };
+            level_2I = 0;
+            for (level_2 in data[level_1]) {
+                if (data[level_1].hasOwnProperty(level_2)) {
+                    level_2P = {
+                        id: level_1P.id + '_' + level_2I,
+                        name: level_2,
+                        parent: level_1P.id
+                    };
+                    points.push(level_2P);
+                    level_3I = 0;
+                    for (level_3 in data[level_1][level_2]) {
+                        if (data[level_1][level_2].hasOwnProperty(level_3)) {
+                            level_3P = {
+                                id: level_2P.id + '_' + level_3I,
+                                name: level_3,
+                                parent: level_2P.id,
+                            };
+                            points.push(level_3P);
+                            level_3I += 1;
+                        
+                    
+                    	for (level_4 in data[level_1][level_2][level_3]) {
+                    		if (data[level_1][level_2][level_3].hasOwnProperty(level_4)) {
+                            	level_4P = {
+                                	id: level_3P.id + '_' + level_4I,
+                                	name: level_4,
+                                	parent: level_3P.id,
+                            	};
+                            	points.push(level_4P);
+                            	level_4I += 1;
+                        	} //if level 4 
+                         	if (data[level_1][level_2][level_3][level_4] > 0) {
+                 			level_4P.value = data[level_1][level_2][level_3][level_4];
+                        	}
+                    	} //for level 4
+                    	level_3I +=1;
+                		} //if level 3 
+                	 	if (data[level_1][level_2][level_3] > 0) {
+                 		level_3P.value = data[level_1][level_2][level_3];
+                     	}
+                     } //for level 3
+                    level_2I += 1;
+                }
+                if (data[level_1][level_2] > 0) {
+                 level_2P.value = data[level_1][level_2];
+                        }
+            }
+            points.push(level_1P);
+            level_1I += 1;
+            
+        }/*
+        for (var i = 0; i < data[0].length, i++) {
+        	for (var j = 0; data[level_1][level_2].length)
+        	level_1P[i].value = data[level_1][level_2][i];
+        }*/
+    }
+	
+
     $('#tree_map').highcharts({
         series: [{
             type: "treemap",
-            layoutAlgorithm: 'stripes',
+            layoutAlgorithm: 'squarified',
+            //layout options: sliceAndDice, stripes, squarified or strip
             alternateStartingDirection: true,
             allowDrillToNode: true,
+            animationLimit: 1000,
             levelIsConstant: false,
+            dataLabels: {
+            	enabled: true,
+            },
             levels: [{
                 level: 1,
                 layoutAlgorithm: 'sliceAndDice',
@@ -221,48 +344,29 @@ $(document).ready(function(){
                     align: 'left',
                     verticalAlign: 'top',
                     style: {
-                        fontSize: '15px',
+                        fontSize: '18px',
                         fontWeight: 'bold'
                     }
                 }
             }],
-            data: [{
-                //id: 'pce',
-                name: 'Personal Consumption Expenditures',
-                //color: "#EC2500",
-                value: pce[0],
-                drilldown: 'goods_services'
-            }, {
-                id: 'private_investment',
-                name: 'Gross Domestic Private Investment',
-                color: "#ECE100"
-                //allowDrillToNode: true
-            }/*, {
-                name: 'Services',
-                parent: 'pce',
-                value: c_services[0]
-            }, {
-                name: 'Fixed Investment',
-                parent: 'private_investment',
-                value: fixed_investment[0]
-            }, {
-                name: 'Change in Private Inventories',
-                parent: 'private_investment',
-                value: change_privateinv[0]
-            }*/]
-        }],
-        drilldown: [{
+
+            data: points
+
+            }],
+
+        //}],
+        /*drilldown: [{
         		id: 'goods_services',
         		name: 'Goods and Services',
         		parent: 'pce',
-       			value: [6
+       			data: [6
        				//['Goods', goods[0]],
        				//['Services', c_services[0]]
        				]
 
 
 
-        }],
+        }],*/
         title: {
             text: 'How does U.S Census Bureau data fit into the Bureau of Economic Analysis GDP Calculation?'
         }
