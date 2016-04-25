@@ -265,6 +265,8 @@ for (level_1 in data) {
             level_1P = {
                 id: 'id_' + level_1I,
                 name: level_1,
+                color: Highcharts.getOptions().colors[level_1I]
+
             };
             level_2I = 0;
             for (level_2 in data[level_1]) {
@@ -272,7 +274,9 @@ for (level_1 in data) {
                     level_2P = {
                         id: level_1P.id + '_' + level_2I,
                         name: level_2,
-                        parent: level_1P.id
+                        parent: level_1P.id,
+ 	                    color: Highcharts.getOptions().colors[level_2I]
+
                     };
                     points.push(level_2P);
                     level_3I = 0;
@@ -282,25 +286,46 @@ for (level_1 in data) {
                                 id: level_2P.id + '_' + level_3I,
                                 name: level_3,
                                 parent: level_2P.id,
+                                color: Highcharts.getOptions().colors[level_3I]
                             };
                             points.push(level_3P);
-                            level_3I += 1;
-                        
-                    
+                		
+                		level_4I = 0;               
                     	for (level_4 in data[level_1][level_2][level_3]) {
                     		if (data[level_1][level_2][level_3].hasOwnProperty(level_4)) {
                             	level_4P = {
                                 	id: level_3P.id + '_' + level_4I,
                                 	name: level_4,
                                 	parent: level_3P.id,
+                                	color: Highcharts.getOptions().colors[level_4I]
                             	};
                             	points.push(level_4P);
+
+                            level_5I = 0;
+                    		for (level_5 in data[level_1][level_2][level_3][level_4]) {
+                    			if (data[level_1][level_2][level_3][level_4].hasOwnProperty(level_5)) {
+                            		level_5P = {
+                                		id: level_4P.id + '_' + level_5I,
+                                		name: level_5,
+                                		parent: level_4P.id,
+                                		color: Highcharts.getOptions().colors[level_5I]
+                            		};
+                            		points.push(level_5P);
+                            		level_5I += 1;
+                        		} //if level 5 
+                         		if (data[level_1][level_2][level_3][level_4][level_5] > 0) {
+                 				level_5P.value = data[level_1][level_2][level_3][level_4][level_5];
+                        		}
+                    		} //for level 5
+
                             	level_4I += 1;
                         	} //if level 4 
                          	if (data[level_1][level_2][level_3][level_4] > 0) {
                  			level_4P.value = data[level_1][level_2][level_3][level_4];
                         	}
                     	} //for level 4
+
+
                     	level_3I +=1;
                 		} //if level 3 
                 	 	if (data[level_1][level_2][level_3] > 0) {
@@ -308,11 +333,16 @@ for (level_1 in data) {
                      	}
                      } //for level 3
                     level_2I += 1;
-                }
+                } //if level 2
                 if (data[level_1][level_2] > 0) {
                  level_2P.value = data[level_1][level_2];
                         }
-            }
+                if (data[level_1][level_2] == 'Net Exports') {
+                	alert("yes!");
+                	level_2P.value = net_exports[0];
+                }
+
+            } //for level 2
             points.push(level_1P);
             level_1I += 1;
             
@@ -323,6 +353,8 @@ for (level_1 in data) {
         }*/
     }
 	
+
+   	//data['GDP']['Net Exports'].value = net_exports[0];
 
     $('#tree_map').highcharts({
         series: [{
