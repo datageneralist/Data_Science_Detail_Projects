@@ -98,8 +98,11 @@ $(document).ready(function(){
 			SeriesCode(non_defense, 'A825RC');
 			SeriesCode(state_local, 'A829RC');
 
+			im_goods[0] *= -1;
+			im_services[0] *= -1;
 
 
+/*
 			
 			$(function () {
 			
@@ -125,9 +128,9 @@ $(document).ready(function(){
                 	text: 'Billions (Real 2009 Chained U.S Dollars)'
             	},
             	labels: {
-                	/*formatter: function () {
-                    	return this.value;
-               		 	}*/
+                	//formatter: function () {
+                    	//return this.value;
+               		 	}
             	}
        	 		},
         		tooltip: {
@@ -204,10 +207,13 @@ $(document).ready(function(){
 	
 	});
 
+*/
+
+
 // Tree Map
 
 $(function () {
-
+/*
 	var data = {
 		'GDP': {
 			'Personal Consumption Expenditures': {
@@ -235,7 +241,7 @@ $(function () {
 				},
 				'Imports': {
 					'Imports: Goods': im_goods[0],
-					'Imports: Services': im_services[0]		
+					'Imports: Services': im_services[0]	
 				}
 			},
 			'Govt Spending':{
@@ -278,7 +284,9 @@ for (level_1 in data) {
  	                    color: Highcharts.getOptions().colors[level_2I]
 
                     };
+					//data.GDP['Net Exports'].value = 1000;
                     points.push(level_2P);
+
                     level_3I = 0;
                     for (level_3 in data[level_1][level_2]) {
                         if (data[level_1][level_2].hasOwnProperty(level_3)) {
@@ -336,25 +344,22 @@ for (level_1 in data) {
                 } //if level 2
                 if (data[level_1][level_2] > 0) {
                  level_2P.value = data[level_1][level_2];
-                        }
-                if (data[level_1][level_2] == 'Net Exports') {
-                	alert("yes!");
-                	level_2P.value = net_exports[0];
-                }
+                        }               
+
+
 
             } //for level 2
             points.push(level_1P);
             level_1I += 1;
+
             
-        }/*
-        for (var i = 0; i < data[0].length, i++) {
-        	for (var j = 0; data[level_1][level_2].length)
-        	level_1P[i].value = data[level_1][level_2][i];
-        }*/
+        }
     }
 	
 
-   	//data['GDP']['Net Exports'].value = net_exports[0];
+
+*/
+durable_goods[0]*=-1;
 
     $('#tree_map').highcharts({
         series: [{
@@ -382,11 +387,34 @@ for (level_1 in data) {
                 }
             }],
 
-            data: points
+            //data: points
+            data: [{
+            	id: 'PCE',
+            	name: 'PCE',
+            	value: pce[0]
+            	},
+            	{
+            	id: 'Goods',
+            	name: 'Goods',
+            	parent: 'PCE',
+            	value: goods[0]		
+            	},
+            	{
+            		id: 'Services',
+            		name: 'Services',
+            		parent: 'PCE',
+            		value: c_services[0]
+            	},
+            	{
+            		id: 'Durable_Goods',
+            		name: 'Durable Goods',
+            		parent: 'Goods',
+            		value: durable_goods[0]
+            	}
 
-            }],
+            ],
 
-        //}],
+        }],
         /*drilldown: [{
         		id: 'goods_services',
         		name: 'Goods and Services',
@@ -405,7 +433,6 @@ for (level_1 in data) {
     });
 });		
 
-		//var chart = $('#container').highcharts;
 
 
 		function api_test () {
