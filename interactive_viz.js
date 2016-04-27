@@ -98,8 +98,6 @@ $(document).ready(function(){
 			SeriesCode(non_defense, 'A825RC');
 			SeriesCode(state_local, 'A829RC');
 
-			im_goods[0] *= -1;
-			im_services[0] *= -1;
 
 
 /*
@@ -359,7 +357,6 @@ for (level_1 in data) {
 
 
 */
-durable_goods[0]*=-1;
 
     $('#tree_map').highcharts({
         series: [{
@@ -410,6 +407,100 @@ durable_goods[0]*=-1;
             		name: 'Durable Goods',
             		parent: 'Goods',
             		value: durable_goods[0]
+            	},
+            	{
+            		id: 'Nondurable_Goods',
+            		name: 'Nondurable Goods',
+            		parent: 'Goods',
+            		value: nondurable_goods[0]
+            	},
+            	{
+            		id: 'Private_Investment',
+            		name: 'Private Investment',
+            		value: private_investment[0]
+            	},
+            	{
+            		id: 'Fixed_Investment',
+            		name: 'Fixed Investment',
+            		parent: 'Private_Investment',
+            		value: fixed_investment[0]
+            	},
+            	{
+            		id: 'Change_In_Private_Inventories',
+            		name: 'Change in Private Inventories',
+            		parent: 'Private_Investment',
+            		value: change_privateinv[0]
+            	},
+            	{
+            		id: 'Nonresidential_Investment',
+            		name: 'Nonresidential Investment',
+            		parent: 'Fixed_Investment',
+            		value: nonres_investment[0]
+            	},
+            	{
+            		id: 'Residential_Investment',
+            		name: 'Residential Investment',
+            		parent: 'Fixed_Investment',
+            		value: residential[0]
+            	},
+            	{
+            		id: 'Structures',
+            		name: 'Structures',
+            		parent: 'Nonresidential_Investment',
+            		value: structures[0]
+            	},
+            	{
+            		id: 'Equipment',
+            		name: 'Equipment',
+            		parent: 'Nonresidential_Investment',
+            		value: equipment[0]
+            	},
+            	{
+            		id: 'IP_software',
+            		name: 'IP Software',
+            		parent: 'Nonresidential_Investment',
+            		value: IP_software[0]
+            	},
+            	{
+            		id: 'Net_Exports',
+            		name: 'Net Exports',
+            		value: net_exports[0]*-1
+            	},
+            	{
+            		id: 'Exports',
+            		name: 'Exports',
+            		parent: 'Net_Exports',
+            		value: trade_exports[0]
+            	},
+            	{
+            		id: 'Imports',
+            		name: 'Imports',
+            		parent: 'Net_Exports',
+            		value: trade_imports[0]
+            	},
+            	{
+            		id: 'Ex_Goods',
+            		name: 'Exports: Goods',
+            		parent: 'Exports',
+            		value: ex_goods[0]
+            	},
+            	{
+            		id: 'Ex_Services',
+            		name: 'Exports: Services',
+            		parent: 'Exports',
+            		value: ex_services[0]
+            	},
+            	{
+            		id: 'Im_Goods',
+            		name: 'Imports: Goods',
+            		parent: 'Imports',
+            		value: im_goods[0]
+            	},
+            	{
+            		id: 'Im_Services',
+            		name: 'Imports: Services',
+            		parent: 'Imports',
+            		value: im_services[0]
             	}
 
             ],
