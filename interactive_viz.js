@@ -501,7 +501,37 @@ for (level_1 in data) {
             		name: 'Imports: Services',
             		parent: 'Imports',
             		value: im_services[0]
+            	},
+            	{
+            		id: 'Govt_spending',
+            		name: 'Government Spending',
+            		value: govt_spending[0]
+            	},
+            	{
+            		id: 'Federal',
+            		name: 'Federal',
+            		parent: 'Govt_spending',
+            		value: federal[0]
+            	},
+            	{
+            		id: 'State_Local',
+            		name: 'State and Local',
+            		parent: 'Govt_spending',
+            		value: state_local[0]
+            	},
+            	{
+            		id: 'National_Defense',
+            		name: 'National Defense',
+            		parent: 'Federal',
+            		value: national_defense[0]
+            	},
+            	{
+            		id: 'Non_Defense',
+            		name: 'Non Defense',
+            		parent: 'Federal',
+            		value: non_defense[0]
             	}
+
 
             ],
 
