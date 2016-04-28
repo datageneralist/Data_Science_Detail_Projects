@@ -34,6 +34,7 @@ $(document).ready(function(){
 
 			};
 
+			var gdp = [];
 			var pce = [];
 			var goods = [];
 			var durable_goods = [];
@@ -72,6 +73,7 @@ $(document).ready(function(){
 				};
 			};
 			
+			SeriesCode(gdp, 'A191RC');
 			SeriesCode(pce, 'DPCERC');
 			SeriesCode(goods, 'DGDSRC');
 			SeriesCode(durable_goods, 'DDURRC');
@@ -211,7 +213,7 @@ $(document).ready(function(){
 // Tree Map
 
 $(function () {
-/*
+/* //Complicated Tree Map Code
 	var data = {
 		'GDP': {
 			'Personal Consumption Expenditures': {
@@ -353,12 +355,45 @@ for (level_1 in data) {
             
         }
     }
-	
-
-
 */
 
     $('#tree_map').highcharts({
+    	colorAxis: {
+    		/*stops: [
+    			[0, '#ff0000'],
+    			[0.3, '#78ff6c'],
+    			[0.5, '#11d000']
+    		],
+    		   	min: -3000
+			*/
+    		minColor: '#ff0000',
+    		maxColor: Highcharts.getOptions().colors[0]
+    		/*dataClasses: [{
+    			color: '#ff0000',
+    			from: -3000,
+    			to: -1
+    		},
+    		{
+    			color: '#78ff6c',
+    			from: 0,
+    			to: 100
+    		},
+    		{
+    			color: '#15ff00',
+    			from: 100.01,
+    			to: 300
+    		},
+    		{
+    			color: '#11d000',
+    			from: 300.01,
+    			to: 500
+    		},
+    		{
+    			color: '#0d9f00',
+    			from: 500.01,
+    			to: 1000
+    		}];*/
+    	},
         series: [{
             type: "treemap",
             layoutAlgorithm: 'squarified',
@@ -368,7 +403,7 @@ for (level_1 in data) {
             animationLimit: 1000,
             levelIsConstant: false,
             dataLabels: {
-            	enabled: true,
+            	enabled: false,
             },
             levels: [{
                 level: 1,
@@ -386,173 +421,215 @@ for (level_1 in data) {
 
             //data: points
             data: [{
+            	id: 'GDP',
+            	name: 'GDP',
+            	value: gdp[0],
+            	colorValue: 1
+            	},            	
+            	{
             	id: 'PCE',
             	name: 'PCE',
-            	value: pce[0]
+            	parent: 'GDP',
+            	value: pce[0],
+            	colorValue: 2
             	},
             	{
             	id: 'Goods',
             	name: 'Goods',
             	parent: 'PCE',
-            	value: goods[0]		
+            	value: goods[0],
+            	colorValue: 3		
             	},
             	{
             		id: 'Services',
             		name: 'Services',
             		parent: 'PCE',
-            		value: c_services[0]
+            		value: c_services[0],
+            		colorValue: 4
             	},
             	{
             		id: 'Durable_Goods',
             		name: 'Durable Goods',
             		parent: 'Goods',
-            		value: durable_goods[0]
+            		value: durable_goods[0],
+            		colorValue: 5		
+
             	},
             	{
             		id: 'Nondurable_Goods',
             		name: 'Nondurable Goods',
             		parent: 'Goods',
-            		value: nondurable_goods[0]
+            		value: nondurable_goods[0],
+            		colorValue: 6
             	},
             	{
             		id: 'Private_Investment',
             		name: 'Private Investment',
-            		value: private_investment[0]
+            		parent: 'GDP',
+            		value: private_investment[0],
+            		colorValue: 7
             	},
             	{
             		id: 'Fixed_Investment',
             		name: 'Fixed Investment',
             		parent: 'Private_Investment',
-            		value: fixed_investment[0]
+            		value: fixed_investment[0],
+            		colorValue: 8
             	},
             	{
             		id: 'Change_In_Private_Inventories',
             		name: 'Change in Private Inventories',
             		parent: 'Private_Investment',
-            		value: change_privateinv[0]
+            		value: change_privateinv[0],
+            		colorValue: 9
             	},
             	{
             		id: 'Nonresidential_Investment',
             		name: 'Nonresidential Investment',
             		parent: 'Fixed_Investment',
-            		value: nonres_investment[0]
+            		value: nonres_investment[0],
+            		colorValue: 10
             	},
             	{
             		id: 'Residential_Investment',
             		name: 'Residential Investment',
             		parent: 'Fixed_Investment',
-            		value: residential[0]
+            		value: residential[0],
+            		colorValue: 9
             	},
             	{
             		id: 'Structures',
             		name: 'Structures',
             		parent: 'Nonresidential_Investment',
-            		value: structures[0]
+            		value: structures[0],
+            		colorValue: 8
             	},
             	{
             		id: 'Equipment',
             		name: 'Equipment',
             		parent: 'Nonresidential_Investment',
-            		value: equipment[0]
+            		value: equipment[0],
+            		colorValue: 7
             	},
             	{
             		id: 'IP_software',
             		name: 'IP Software',
             		parent: 'Nonresidential_Investment',
-            		value: IP_software[0]
+            		value: IP_software[0],
+            		colorValue: 6
             	},
             	{
             		id: 'Net_Exports',
             		name: 'Net Exports',
-            		value: net_exports[0]*-1
+            		parent: 'GDP',
+            		value: net_exports[0],
+            		colorValue: 5
             	},
             	{
             		id: 'Exports',
             		name: 'Exports',
             		parent: 'Net_Exports',
-            		value: trade_exports[0]
+            		value: trade_exports[0],
+            		colorValue: 4
             	},
             	{
             		id: 'Imports',
             		name: 'Imports',
             		parent: 'Net_Exports',
-            		value: trade_imports[0]
+            		value: trade_imports[0],
+            		colorValue: 3
             	},
             	{
             		id: 'Ex_Goods',
             		name: 'Exports: Goods',
             		parent: 'Exports',
-            		value: ex_goods[0]
+            		value: ex_goods[0],
+            		colorValue: 2
             	},
             	{
             		id: 'Ex_Services',
             		name: 'Exports: Services',
             		parent: 'Exports',
-            		value: ex_services[0]
+            		value: ex_services[0],
+            		colorValue: 1
             	},
             	{
             		id: 'Im_Goods',
             		name: 'Imports: Goods',
             		parent: 'Imports',
-            		value: im_goods[0]
+            		value: im_goods[0],
+            		colorValue: 2
             	},
             	{
             		id: 'Im_Services',
             		name: 'Imports: Services',
             		parent: 'Imports',
-            		value: im_services[0]
+            		value: im_services[0],
+            		colorValue: 2
             	},
             	{
             		id: 'Govt_spending',
             		name: 'Government Spending',
-            		value: govt_spending[0]
+            		parent: 'GDP',
+            		value: govt_spending[0],
+            		colorValue: 4
             	},
             	{
             		id: 'Federal',
             		name: 'Federal',
             		parent: 'Govt_spending',
-            		value: federal[0]
+            		value: federal[0],
+            		colorValue: 3
             	},
             	{
             		id: 'State_Local',
             		name: 'State and Local',
             		parent: 'Govt_spending',
-            		value: state_local[0]
+            		value: state_local[0],
+            		colorValue: 2
             	},
             	{
             		id: 'National_Defense',
             		name: 'National Defense',
             		parent: 'Federal',
-            		value: national_defense[0]
+            		value: national_defense[0],
+            		colorValue: 2
             	},
             	{
             		id: 'Non_Defense',
             		name: 'Non Defense',
             		parent: 'Federal',
-            		value: non_defense[0]
+            		value: non_defense[0],
+            		colorValue: 2
+            	},
+            	{
+            		id: 'Test1',
+            		name: 'Test 1',
+            		parent: 'Durable_Goods',
+            		value: 25+'%'            		
+            	},
+            	{
+            		id: 'Test_2',
+            		name: 'Test 2',
+            		parent: 'Durable_Goods',
+            		value: 25
             	}
 
 
             ],
 
         }],
-        /*drilldown: [{
-        		id: 'goods_services',
-        		name: 'Goods and Services',
-        		parent: 'pce',
-       			data: [6
-       				//['Goods', goods[0]],
-       				//['Services', c_services[0]]
-       				]
 
-
-
-        }],*/
         title: {
             text: 'How does U.S Census Bureau data fit into the Bureau of Economic Analysis GDP Calculation?'
         }
-    });
-});		
+    }); //tree map high charts close
+
+		//Stacked Bar CHart With Drilldown
+
+
+
+});		//function close
 
 
 
@@ -560,6 +637,9 @@ for (level_1 in data) {
 		};
 
 //Stacked Area Chart from High Charts
+   		 $('#stacked_bar').highcharts({
+   		 	
+		}
 
  
 });
