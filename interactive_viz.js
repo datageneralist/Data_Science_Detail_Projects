@@ -102,7 +102,7 @@ $(document).ready(function(){
 
 
 
-/*
+/*  //Area Chart
 			
 			$(function () {
 			
@@ -625,23 +625,117 @@ for (level_1 in data) {
         }
     }); //tree map high charts close
 
-		//Stacked Bar CHart With Drilldown
+
+
+	//function close?
 
 
 
-});		//function close
 
 
-
-		function api_test () {
-		};
-
-//Stacked Area Chart from High Charts
+//Stacked Bar Chart from High Charts
    		 $('#stacked_bar').highcharts({
-   		 	
-		}
+   		 	chart: {
+            	type: 'column'
+        },
+        title: {
+            text: 'How is Census data used by BEA to calculate GDP???'
+        },
+        xAxis: {
+            type: 'Year/Quarter',
+            categories: 'year'
+        },
+        yAxis: {
+            title: {
+                text: 'Billions of Dollars'
+            }
 
- 
+        },
+        stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+        	column: {
+        		stacking: 'normal'
+        	},
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    //format: '{point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            //headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            //pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+        series: [{
+            name: 'Level One Components',
+            colorByPoint: true,
+            data: [{
+                name: 'PCE',
+                y: pce[0],
+                drilldown: 'PCE'
+            },
+            {
+                name: 'Net Exports',
+                y: net_exports[0],
+                drilldown: 'Net Exports'
+            }]
+            }], //Ends series
+
+            drilldown: {
+
+            	series: [{
+                	name: 'PCE',
+                	id: 'PCE',
+                	data: [
+                    [
+                        'Goods',
+                        goods[0]
+                    ],
+                    [
+                    	'Services',
+                    	c_services[0]
+                    ]
+                ]
+
+            }, //ends PCE drilldown
+            	{
+            		name: 'Net Exports',
+            		id: 'Net Exports',
+            		data: [
+            			[
+            				'Exports',
+            				trade_exports[0]
+            			],
+            			[
+            				'Imports',
+            				trade_imports[0]
+            			]
+            		]
+            	}
+
+            ] //ends series
+        } // ends drilldown
+
+
+		}); //Ends bar chart highcharts reference
+
+   	});		//function close
+
+
+ 		function api_test () {
+		};
 });
 
 });
