@@ -9,6 +9,10 @@ $.getJSON('/api/events')
 */
 // Call API Key from getKey function from another JS file.
 // Call API based on the API Key in getKey function
+
+/* Plan: Change Net Exports value to positive. Change tooltip value to negative by adding a prefix.
+Color Axis is not working. Assign colors manually? Get started on stacked bar chart w/ drilldown*/
+
 getKey();
 var api_url = "http://www.bea.gov/api/data?&UserID="+user_id+"&method=GetData&DataSetName=NIPA&Year=2014&ShowMillionsID=N&TableID=5&Frequency=Q&ResultFormat=json&jsonp=api_test";
 
@@ -366,8 +370,8 @@ for (level_1 in data) {
     		],
     		   	min: -3000
 			*/
-    		minColor: '#ff0000',
-    		maxColor: Highcharts.getOptions().colors[0]
+    		minColor: '#00FF00',
+    		maxColor: '#FF0000' //Highcharts.getOptions().colors[0]
     		/*dataClasses: [{
     			color: '#ff0000',
     			from: -3000,
@@ -394,6 +398,19 @@ for (level_1 in data) {
     			to: 1000
     		}];*/
     	},
+		tooltip: {
+                formatter: function() {
+                	var tooltip;
+                	if (this.id === 'Net_Exports') {
+                		alert('hi');
+						tooltip = '-' + this.value;
+					}
+                	else {
+                		tooltip = this.value;
+                	}
+                	return tooltip;
+            }
+        },
         series: [{
             type: "treemap",
             layoutAlgorithm: 'squarified',
@@ -402,6 +419,7 @@ for (level_1 in data) {
             allowDrillToNode: true,
             animationLimit: 1000,
             levelIsConstant: false,
+            colorAxis: true,
             dataLabels: {
             	enabled: false,
             },
@@ -423,15 +441,15 @@ for (level_1 in data) {
             data: [{
             	id: 'GDP',
             	name: 'GDP',
-            	value: gdp[0],
-            	colorValue: 1
+            	colorValue: 3,
+            	value: gdp[0]
             	},            	
             	{
             	id: 'PCE',
             	name: 'PCE',
             	parent: 'GDP',
             	value: pce[0],
-            	colorValue: 2
+            	colorValue: 3,
             	},
             	{
             	id: 'Goods',
@@ -445,14 +463,14 @@ for (level_1 in data) {
             		name: 'Services',
             		parent: 'PCE',
             		value: c_services[0],
-            		colorValue: 4
+            		colorValue: 3
             	},
             	{
             		id: 'Durable_Goods',
             		name: 'Durable Goods',
             		parent: 'Goods',
             		value: durable_goods[0],
-            		colorValue: 5		
+            		colorValue: 3		
 
             	},
             	{
@@ -460,77 +478,81 @@ for (level_1 in data) {
             		name: 'Nondurable Goods',
             		parent: 'Goods',
             		value: nondurable_goods[0],
-            		colorValue: 6
+            		colorValue: 3
             	},
             	{
             		id: 'Private_Investment',
             		name: 'Private Investment',
             		parent: 'GDP',
             		value: private_investment[0],
-            		colorValue: 7
+            		colorValue: 3
             	},
             	{
             		id: 'Fixed_Investment',
             		name: 'Fixed Investment',
             		parent: 'Private_Investment',
             		value: fixed_investment[0],
-            		colorValue: 8
+            		colorValue: 3
             	},
             	{
             		id: 'Change_In_Private_Inventories',
             		name: 'Change in Private Inventories',
             		parent: 'Private_Investment',
             		value: change_privateinv[0],
-            		colorValue: 9
+            		colorValue: 3
             	},
             	{
             		id: 'Nonresidential_Investment',
             		name: 'Nonresidential Investment',
             		parent: 'Fixed_Investment',
             		value: nonres_investment[0],
-            		colorValue: 10
+            		colorValue: 3
             	},
             	{
             		id: 'Residential_Investment',
             		name: 'Residential Investment',
             		parent: 'Fixed_Investment',
             		value: residential[0],
-            		colorValue: 9
+            		colorValue: 3
             	},
             	{
             		id: 'Structures',
             		name: 'Structures',
             		parent: 'Nonresidential_Investment',
             		value: structures[0],
-            		colorValue: 8
+            		colorValue: 3
             	},
             	{
             		id: 'Equipment',
             		name: 'Equipment',
             		parent: 'Nonresidential_Investment',
             		value: equipment[0],
-            		colorValue: 7
+            		colorValue: 3
             	},
             	{
             		id: 'IP_software',
             		name: 'IP Software',
             		parent: 'Nonresidential_Investment',
             		value: IP_software[0],
-            		colorValue: 6
+            		colorValue: 3
             	},
             	{
             		id: 'Net_Exports',
             		name: 'Net Exports',
             		parent: 'GDP',
-            		value: net_exports[0],
-            		colorValue: 5
+            		value: net_exports[0]*(-1),
+					tooltip: {
+                		valueSuffix: '°C'
+            		}            	
+            		
+            		//colorValue: 3
             	},
             	{
             		id: 'Exports',
             		name: 'Exports',
             		parent: 'Net_Exports',
             		value: trade_exports[0],
-            		colorValue: 4
+            		colorValue: 3
             	},
             	{
             		id: 'Imports',
@@ -544,35 +566,35 @@ for (level_1 in data) {
             		name: 'Exports: Goods',
             		parent: 'Exports',
             		value: ex_goods[0],
-            		colorValue: 2
+            		colorValue: 3
             	},
             	{
             		id: 'Ex_Services',
             		name: 'Exports: Services',
             		parent: 'Exports',
             		value: ex_services[0],
-            		colorValue: 1
+            		colorValue: 3
             	},
             	{
             		id: 'Im_Goods',
             		name: 'Imports: Goods',
             		parent: 'Imports',
             		value: im_goods[0],
-            		colorValue: 2
+            		colorValue: 3
             	},
             	{
             		id: 'Im_Services',
             		name: 'Imports: Services',
             		parent: 'Imports',
             		value: im_services[0],
-            		colorValue: 2
+            		colorValue: 3
             	},
             	{
             		id: 'Govt_spending',
             		name: 'Government Spending',
             		parent: 'GDP',
             		value: govt_spending[0],
-            		colorValue: 4
+            		colorValue: 3
             	},
             	{
             		id: 'Federal',
@@ -586,33 +608,35 @@ for (level_1 in data) {
             		name: 'State and Local',
             		parent: 'Govt_spending',
             		value: state_local[0],
-            		colorValue: 2
+            		colorValue: 3
             	},
             	{
             		id: 'National_Defense',
             		name: 'National Defense',
             		parent: 'Federal',
             		value: national_defense[0],
-            		colorValue: 2
+            		colorValue: 3
             	},
             	{
             		id: 'Non_Defense',
             		name: 'Non Defense',
             		parent: 'Federal',
             		value: non_defense[0],
-            		colorValue: 2
+            		colorValue: 3
             	},
             	{
             		id: 'Test1',
             		name: 'Test 1',
             		parent: 'Durable_Goods',
-            		value: 25+'%'            		
+            		value: 25,
+            		colorValue: 3           		
             	},
             	{
             		id: 'Test_2',
             		name: 'Test 2',
             		parent: 'Durable_Goods',
-            		value: 25
+            		value: 25,
+            		colorValue: 3
             	}
 
 
@@ -625,10 +649,12 @@ for (level_1 in data) {
         }
     }); //tree map high charts close
 
-
+/*if (#tree_map.highcharts.series.data.id === 'Net_Exports') {
+	alert('hi');
+}
+*/
 
 	//function close?
-
 
 
 
@@ -655,7 +681,7 @@ for (level_1 in data) {
                 enabled: true,
                 style: {
                     fontWeight: 'bold',
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    //color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
                 }
         },
         legend: {
