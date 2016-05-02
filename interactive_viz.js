@@ -366,13 +366,14 @@ for (level_1 in data) {
     		/*stops: [
     			[0, '#ff0000'],
     			[0.3, '#78ff6c'],
-    			[0.5, '#11d000']
+    			[0.5, '#4CAF50'],
+    			[0.7, '#1B5E20']
     		],
-    		   	min: -3000
+    		   	min: 0
 			*/
-    		minColor: '#00FF00',
-    		maxColor: '#FF0000' //Highcharts.getOptions().colors[0]
-    		/*dataClasses: [{
+    		//minColor: '#FF0000',
+    		//maxColor: '#1B5E20' //Highcharts.getOptions().colors[0]
+    		dataClasses: [{
     			color: '#ff0000',
     			from: -3000,
     			to: -1
@@ -380,33 +381,33 @@ for (level_1 in data) {
     		{
     			color: '#78ff6c',
     			from: 0,
-    			to: 100
+    			to: 2000
     		},
     		{
     			color: '#15ff00',
-    			from: 100.01,
-    			to: 300
+    			from: 2000.01,
+    			to: 3000
     		},
     		{
     			color: '#11d000',
-    			from: 300.01,
-    			to: 500
+    			from: 3000.01,
+    			to: 5000
     		},
     		{
     			color: '#0d9f00',
-    			from: 500.01,
-    			to: 1000
-    		}];*/
+    			from: 5000.01,
+    			to: 10000
+    		}]
     	},
 		tooltip: {
                 formatter: function() {
+                	//Format Net Exports so it looks negative (Size by absolute value)
                 	var tooltip;
-                	if (this.id === 'Net_Exports') {
-                		alert('hi');
-						tooltip = '-' + this.value;
+                	if (this.point.name === 'Net Exports') {
+						tooltip = '-' + this.point.value + ' Billion';
 					}
                 	else {
-                		tooltip = this.value;
+                		tooltip = this.point.value + ' Billion';
                 	}
                 	return tooltip;
             }
@@ -433,44 +434,58 @@ for (level_1 in data) {
                     style: {
                         fontSize: '18px',
                         fontWeight: 'bold'
+                    },
+                    useHTML: true,
+                    formatter: function() {
+                    	if(this.point.name === 'Durable Goods') {
+                    		return '<p>' + this.key + ' : Item 1'+', Item 2 </p>'
+                    	} else {
+                    			return this.key;
+                    		}
+                    	}
                     }
-                }
+                //}
             }],
 
             //data: points
             data: [{
             	id: 'GDP',
             	name: 'GDP',
-            	colorValue: 3,
+            	//color: '#1B5E20',
+            	//colorValue: 3,
             	value: gdp[0]
             	},            	
             	{
             	id: 'PCE',
             	name: 'PCE',
             	parent: 'GDP',
+            	//color: '#43A047',
             	value: pce[0],
-            	colorValue: 3,
+            	//colorValue: 3,
             	},
             	{
             	id: 'Goods',
             	name: 'Goods',
             	parent: 'PCE',
+            	//color: '#A5D6A7',
             	value: goods[0],
-            	colorValue: 3		
+            	//colorValue: 3		
             	},
             	{
             		id: 'Services',
             		name: 'Services',
             		parent: 'PCE',
+            		//color: '#81C784',
             		value: c_services[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Durable_Goods',
             		name: 'Durable Goods',
             		parent: 'Goods',
+            		//color: '#C8E6C9',
             		value: durable_goods[0],
-            		colorValue: 3		
+            		//colorValue: 3		
 
             	},
             	{
@@ -478,165 +493,163 @@ for (level_1 in data) {
             		name: 'Nondurable Goods',
             		parent: 'Goods',
             		value: nondurable_goods[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Private_Investment',
             		name: 'Private Investment',
             		parent: 'GDP',
             		value: private_investment[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Fixed_Investment',
             		name: 'Fixed Investment',
             		parent: 'Private_Investment',
             		value: fixed_investment[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Change_In_Private_Inventories',
             		name: 'Change in Private Inventories',
             		parent: 'Private_Investment',
             		value: change_privateinv[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Nonresidential_Investment',
             		name: 'Nonresidential Investment',
             		parent: 'Fixed_Investment',
             		value: nonres_investment[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Residential_Investment',
             		name: 'Residential Investment',
             		parent: 'Fixed_Investment',
             		value: residential[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Structures',
             		name: 'Structures',
             		parent: 'Nonresidential_Investment',
             		value: structures[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Equipment',
             		name: 'Equipment',
             		parent: 'Nonresidential_Investment',
             		value: equipment[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'IP_software',
             		name: 'IP Software',
             		parent: 'Nonresidential_Investment',
             		value: IP_software[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Net_Exports',
             		name: 'Net Exports',
             		parent: 'GDP',
-            		value: net_exports[0]*(-1),
-					tooltip: {
-                		valueSuffix: '°C'
-            		}            	
-            		
-            		//colorValue: 3
+            		color: '#D50000',
+            		value: net_exports[0]*(-1)          	
             	},
             	{
             		id: 'Exports',
             		name: 'Exports',
             		parent: 'Net_Exports',
             		value: trade_exports[0],
-            		colorValue: 3
+            		//color: '#C8E6C9',
+            		//colorValue: 3
             	},
             	{
             		id: 'Imports',
             		name: 'Imports',
             		parent: 'Net_Exports',
             		value: trade_imports[0],
-            		colorValue: 3
+            		//color: '#C8E6C9',
+            		//colorValue: 3
             	},
             	{
             		id: 'Ex_Goods',
             		name: 'Exports: Goods',
             		parent: 'Exports',
             		value: ex_goods[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Ex_Services',
             		name: 'Exports: Services',
             		parent: 'Exports',
             		value: ex_services[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Im_Goods',
             		name: 'Imports: Goods',
             		parent: 'Imports',
             		value: im_goods[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Im_Services',
             		name: 'Imports: Services',
             		parent: 'Imports',
             		value: im_services[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Govt_spending',
             		name: 'Government Spending',
             		parent: 'GDP',
             		value: govt_spending[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Federal',
             		name: 'Federal',
             		parent: 'Govt_spending',
             		value: federal[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'State_Local',
             		name: 'State and Local',
             		parent: 'Govt_spending',
             		value: state_local[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'National_Defense',
             		name: 'National Defense',
             		parent: 'Federal',
             		value: national_defense[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Non_Defense',
             		name: 'Non Defense',
             		parent: 'Federal',
             		value: non_defense[0],
-            		colorValue: 3
+            		//colorValue: 3
             	},
             	{
             		id: 'Test1',
             		name: 'Test 1',
-            		parent: 'Durable_Goods',
+            		parent: 'Federal',
             		value: 25,
-            		colorValue: 3           		
+            		//colorValue: 3           		
             	},
             	{
             		id: 'Test_2',
             		name: 'Test 2',
-            		parent: 'Durable_Goods',
+            		parent: 'Federal',
             		value: 25,
-            		colorValue: 3
+            		//colorValue: 3
             	}
 
 
