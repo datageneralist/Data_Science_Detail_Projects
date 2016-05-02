@@ -106,114 +106,6 @@ $(document).ready(function(){
 
 
 
-/*  //Area Chart
-			
-			$(function () {
-			
-					$('#area_chart').highcharts({
-       			 	chart: {
-           		 	type: 'area'
-        			},
-       		    	title: {
-            		text: 'How does U.S Census Bureau data fit into the Bureau of Economic Analysis GDP Calculation?'
-       			 	},
-        			subtitle: {
-            		text: 'Sources: Census.gov and Bea.gov'
-        			},
-       		 	xAxis: {
-            		categories: ['2014Q1', '2014Q2', '2014Q3', '2014Q4'],
-            		tickmarkPlacement: 'on',
-            		title: {
-                		enabled: false
-            		}
-       		 	},
-        		yAxis: {
-           	 	title: {
-                	text: 'Billions (Real 2009 Chained U.S Dollars)'
-            	},
-            	labels: {
-                	//formatter: function () {
-                    	//return this.value;
-               		 	}
-            	}
-       	 		},
-        		tooltip: {
-          	  	shared: true,
-            		valueSuffix: ' millions'
-       		 	},
-        		plotOptions: {
-            	area: {
-                	stacking: 'normal',
-                	lineColor: '#666666',
-                	lineWidth: 1,
-                	marker: {
-                    	lineWidth: 1,
-                    	lineColor: '#666666'
-                	}
-            	}
-       		 	},
-       	 		series: [{
-            		name: 'Personal Consumption Expenditures',
-            		data: pce,
-            		color: "#ffffff",
-            		stacking: null,
-            		legendIndex: 3
-            		//visible: false
-            		//lineColor:
-            		
-        		}, 		{
-            		name: 'Durable Goods',
-            		data: durable_goods,
-            		color: '#fcfdbb',
-            		//lineColor: '#b3c900',
-            		index: 8,
-            		legendIndex: 0
-        		}, 		{
-            		name: 'Nondurable Goods',
-            		data: nondurable_goods,
-            		color: '#feff8d',
-            		index: 7,
-            		legendIndex: 1
-            	},		{
-            		name: 'Services',
-            		data: c_services,
-            		color: '#feff54',
-            		lineColor: '#ecee00',
-            		index: 6,
-            		legendIndex: 2
-            	},		{
-            		name: 'Gross Domestic Private Investment',
-            		data: private_investment,
-            		index: 5,
-            		legendIndex: 8
-            	},		{
-            		name: 'Fixed Investment',
-            		data: fixed_investment,
-            		index: 4,
-            		legendIndex: 7
-            	},		{
-            		name: 'Nonresidential Investment',
-            		data: nonres_investment,
-            		index: 3,
-            		legendIndex: 6
-            	},		{
-            		name: 'Structures',
-            		data: structures,
-            		index: 2,
-            		legendIndex: 4
-            	},		{
-            		name: 'Equipment',
-            		data: equipment,
-            		index: 1,
-            		legendIndex: 5
-        	}]
-   		 });
-	
-	});
-
-*/
-
-
 // Tree Map
 
 $(function () {
@@ -362,6 +254,8 @@ for (level_1 in data) {
 */
 
     $('#tree_map').highcharts({
+    	colors: 
+    		['#ff0000', '#78ff6c', '#15ff00', '#11d000', '#0d9f00'],
     	colorAxis: {
     		/*stops: [
     			[0, '#ff0000'],
@@ -373,30 +267,25 @@ for (level_1 in data) {
 			*/
     		//minColor: '#FF0000',
     		//maxColor: '#1B5E20' //Highcharts.getOptions().colors[0]
+    		dataClassColor: 'category',
     		dataClasses: [{
-    			color: '#ff0000',
     			from: -3000,
     			to: -1
     		},
     		{
-    			color: '#78ff6c',
     			from: 0,
     			to: 2000
     		},
     		{
-    			color: '#15ff00',
     			from: 2000.01,
     			to: 3000
     		},
     		{
-    			color: '#11d000',
     			from: 3000.01,
     			to: 5000
     		},
     		{
-    			color: '#0d9f00',
-    			from: 5000.01,
-    			to: 10000
+    			from: 5000.01
     		}]
     	},
 		tooltip: {
@@ -671,7 +560,7 @@ for (level_1 in data) {
 
 
 
-
+/*
 //Stacked Bar Chart from High Charts
    		 $('#stacked_bar').highcharts({
    		 	chart: {
@@ -769,6 +658,7 @@ for (level_1 in data) {
 
 
 		}); //Ends bar chart highcharts reference
+		*/
 
    	});		//function close
 
