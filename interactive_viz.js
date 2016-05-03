@@ -12,6 +12,7 @@ $.getJSON('/api/events')
 
 /* Plan: Change Net Exports value to positive. Change tooltip value to negative by adding a prefix.
 Color Axis is not working. Assign colors manually? Get started on stacked bar chart w/ drilldown*/
+//Display sources for leaf in tooltip? Or anchor tag to another parent-node tree diagram
 
 getKey();
 var api_url = "http://www.bea.gov/api/data?&UserID="+user_id+"&method=GetData&DataSetName=NIPA&Year=2014&ShowMillionsID=N&TableID=5&Frequency=Q&ResultFormat=json&jsonp=api_test";
@@ -252,10 +253,15 @@ for (level_1 in data) {
         }
     }
 */
+var Sources = {
+	'Net_Exports' : '<br/>' + 'Test 1' + '<br/>' + 'Test 2'
+};
 
-    $('#tree_map').highcharts({
-    	colors: 
-    		['#ff0000', '#78ff6c', '#15ff00', '#11d000', '#0d9f00'],
+$('#tree_map').highcharts({
+
+    	//colors: {
+ 
+    		//['#ff0000', '#78ff6c', '#15ff00', '#11d000', '#0d9f00'],
     	colorAxis: {
     		/*stops: [
     			[0, '#ff0000'],
@@ -265,11 +271,11 @@ for (level_1 in data) {
     		],
     		   	min: 0
 			*/
-    		//minColor: '#FF0000',
-    		//maxColor: '#1B5E20' //Highcharts.getOptions().colors[0]
-    		dataClassColor: 'category',
+    		minColor: '#FF0000',
+    		maxColor: '#1B5E20' //Highcharts.getOptions().colors[0]
+    		/*dataClassColor: 'category',
     		dataClasses: [{
-    			from: -3000,
+    			from: -1000,
     			to: -1
     		},
     		{
@@ -286,14 +292,14 @@ for (level_1 in data) {
     		},
     		{
     			from: 5000.01
-    		}]
+    		}]*/
     	},
 		tooltip: {
                 formatter: function() {
                 	//Format Net Exports so it looks negative (Size by absolute value)
                 	var tooltip;
                 	if (this.point.name === 'Net Exports') {
-						tooltip = '-' + this.point.value + ' Billion';
+						tooltip = '-' + this.point.value + ' Billion' + '</br>' + Sources['Net_Exports'] ;
 					}
                 	else {
                 		tooltip = this.point.value + ' Billion';
@@ -301,6 +307,8 @@ for (level_1 in data) {
                 	return tooltip;
             }
         },
+
+
         series: [{
             type: "treemap",
             layoutAlgorithm: 'squarified',
@@ -309,7 +317,7 @@ for (level_1 in data) {
             allowDrillToNode: true,
             animationLimit: 1000,
             levelIsConstant: false,
-            colorAxis: true,
+            //colorByPoint: true,
             dataLabels: {
             	enabled: false,
             },
@@ -337,6 +345,8 @@ for (level_1 in data) {
             }],
 
             //data: points
+
+            
             data: [{
             	id: 'GDP',
             	name: 'GDP',
@@ -444,7 +454,7 @@ for (level_1 in data) {
             		id: 'Net_Exports',
             		name: 'Net Exports',
             		parent: 'GDP',
-            		color: '#D50000',
+            		//color: '#D50000',
             		value: net_exports[0]*(-1)          	
             	},
             	{
@@ -551,114 +561,11 @@ for (level_1 in data) {
         }
     }); //tree map high charts close
 
-/*if (#tree_map.highcharts.series.data.id === 'Net_Exports') {
-	alert('hi');
-}
-*/
+
 
 	//function close?
 
 
-
-/*
-//Stacked Bar Chart from High Charts
-   		 $('#stacked_bar').highcharts({
-   		 	chart: {
-            	type: 'column'
-        },
-        title: {
-            text: 'How is Census data used by BEA to calculate GDP???'
-        },
-        xAxis: {
-            type: 'Year/Quarter',
-            categories: 'year'
-        },
-        yAxis: {
-            title: {
-                text: 'Billions of Dollars'
-            }
-
-        },
-        stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    //color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                }
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-        	column: {
-        		stacking: 'normal'
-        	},
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    //format: '{point.y:.1f}%'
-                }
-            }
-        },
-
-        tooltip: {
-            //headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            //pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-        },
-        series: [{
-            name: 'Level One Components',
-            colorByPoint: true,
-            data: [{
-                name: 'PCE',
-                y: pce[0],
-                drilldown: 'PCE'
-            },
-            {
-                name: 'Net Exports',
-                y: net_exports[0],
-                drilldown: 'Net Exports'
-            }]
-            }], //Ends series
-
-            drilldown: {
-
-            	series: [{
-                	name: 'PCE',
-                	id: 'PCE',
-                	data: [
-                    [
-                        'Goods',
-                        goods[0]
-                    ],
-                    [
-                    	'Services',
-                    	c_services[0]
-                    ]
-                ]
-
-            }, //ends PCE drilldown
-            	{
-            		name: 'Net Exports',
-            		id: 'Net Exports',
-            		data: [
-            			[
-            				'Exports',
-            				trade_exports[0]
-            			],
-            			[
-            				'Imports',
-            				trade_imports[0]
-            			]
-            		]
-            	}
-
-            ] //ends series
-        } // ends drilldown
-
-
-		}); //Ends bar chart highcharts reference
-		*/
 
    	});		//function close
 
