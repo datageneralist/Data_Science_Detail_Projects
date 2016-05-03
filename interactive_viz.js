@@ -263,16 +263,16 @@ $('#tree_map').highcharts({
  
     		//['#ff0000', '#78ff6c', '#15ff00', '#11d000', '#0d9f00'],
     	colorAxis: {
-    		/*stops: [
+    		stops: [
     			[0, '#ff0000'],
     			[0.3, '#78ff6c'],
     			[0.5, '#4CAF50'],
     			[0.7, '#1B5E20']
     		],
-    		   	min: 0
-			*/
-    		minColor: '#FF0000',
-    		maxColor: '#1B5E20' //Highcharts.getOptions().colors[0]
+    		   	min: -3000
+			
+    		//minColor: '#FF0000',
+    		//maxColor: '#1B5E20' //Highcharts.getOptions().colors[0]
     		/*dataClassColor: 'category',
     		dataClasses: [{
     			from: -1000,
@@ -318,6 +318,17 @@ $('#tree_map').highcharts({
             animationLimit: 1000,
             levelIsConstant: false,
             //colorByPoint: true,
+            color: {
+            	formatter: function() {
+            		if (this.point.value > 1000) {
+            			alert('yeah!!!!');
+            			this.point.color = '#1B5E20';
+            		}
+            		else {
+            			this.point.color = 'blue';
+            		}
+            	}
+            },
             dataLabels: {
             	enabled: false,
             },
@@ -343,16 +354,20 @@ $('#tree_map').highcharts({
                     }
                 //}
             }],
-
-            //data: points
-
             
             data: [{
             	id: 'GDP',
             	name: 'GDP',
-            	//color: '#1B5E20',
-            	//colorValue: 3,
-            	value: gdp[0]
+            	value: gdp[0],
+            	color: (function() {
+            			var new_color;
+            			if (this.value > 1000) {
+            				alert('yeah');
+            				new_color = '#1B5E20';
+            				return new_color;
+            			}   
+            		})
+            	//}
             	},            	
             	{
             	id: 'PCE',
@@ -360,15 +375,13 @@ $('#tree_map').highcharts({
             	parent: 'GDP',
             	//color: '#43A047',
             	value: pce[0],
-            	//colorValue: 3,
             	},
             	{
             	id: 'Goods',
             	name: 'Goods',
             	parent: 'PCE',
             	//color: '#A5D6A7',
-            	value: goods[0],
-            	//colorValue: 3		
+            	value: goods[0]
             	},
             	{
             		id: 'Services',
@@ -376,130 +389,135 @@ $('#tree_map').highcharts({
             		parent: 'PCE',
             		//color: '#81C784',
             		value: c_services[0],
-            		//colorValue: 3
             	},
             	{
             		id: 'Durable_Goods',
             		name: 'Durable Goods',
             		parent: 'Goods',
             		//color: '#C8E6C9',
-            		value: durable_goods[0],
-            		//colorValue: 3		
+            		value: durable_goods[0]
 
             	},
             	{
             		id: 'Nondurable_Goods',
             		name: 'Nondurable Goods',
             		parent: 'Goods',
-            		value: nondurable_goods[0],
-            		//colorValue: 3
+            		value: nondurable_goods[0]
             	},
             	{
             		id: 'Private_Investment',
             		name: 'Private Investment',
             		parent: 'GDP',
-            		value: private_investment[0],
-            		//colorValue: 3
+            		value: private_investment[0]
             	},
             	{
             		id: 'Fixed_Investment',
             		name: 'Fixed Investment',
             		parent: 'Private_Investment',
-            		value: fixed_investment[0],
-            		//colorValue: 3
+            		value: fixed_investment[0]
             	},
             	{
             		id: 'Change_In_Private_Inventories',
             		name: 'Change in Private Inventories',
             		parent: 'Private_Investment',
-            		value: change_privateinv[0],
-            		//colorValue: 3
+            		value: change_privateinv[0]
             	},
             	{
             		id: 'Nonresidential_Investment',
             		name: 'Nonresidential Investment',
             		parent: 'Fixed_Investment',
-            		value: nonres_investment[0],
-            		//colorValue: 3
+            		value: nonres_investment[0]
             	},
             	{
             		id: 'Residential_Investment',
             		name: 'Residential Investment',
             		parent: 'Fixed_Investment',
-            		value: residential[0],
-            		//colorValue: 3
+            		value: residential[0]
             	},
             	{
             		id: 'Structures',
             		name: 'Structures',
             		parent: 'Nonresidential_Investment',
-            		value: structures[0],
-            		//colorValue: 3
+            		value: structures[0]
             	},
             	{
             		id: 'Equipment',
             		name: 'Equipment',
             		parent: 'Nonresidential_Investment',
-            		value: equipment[0],
-            		//colorValue: 3
+            		value: equipment[0]
             	},
             	{
             		id: 'IP_software',
             		name: 'IP Software',
             		parent: 'Nonresidential_Investment',
-            		value: IP_software[0],
-            		//colorValue: 3
+            		value: IP_software[0]
             	},
             	{
             		id: 'Net_Exports',
             		name: 'Net Exports',
             		parent: 'GDP',
-            		//color: '#D50000',
+            		color: '#D50000',
             		value: net_exports[0]*(-1)          	
             	},
             	{
             		id: 'Exports',
             		name: 'Exports',
             		parent: 'Net_Exports',
-            		value: trade_exports[0],
+            		value: trade_exports[0]
             		//color: '#C8E6C9',
-            		//colorValue: 3
             	},
             	{
             		id: 'Imports',
             		name: 'Imports',
             		parent: 'Net_Exports',
-            		value: trade_imports[0],
+            		value: trade_imports[0]
             		//color: '#C8E6C9',
-            		//colorValue: 3
             	},
             	{
             		id: 'Ex_Goods',
             		name: 'Exports: Goods',
             		parent: 'Exports',
-            		value: ex_goods[0],
-            		//colorValue: 3
+            		value: ex_goods[0]
             	},
             	{
             		id: 'Ex_Services',
             		name: 'Exports: Services',
             		parent: 'Exports',
-            		value: ex_services[0],
-            		//colorValue: 3
+            		value: ex_services[0]
             	},
             	{
             		id: 'Im_Goods',
             		name: 'Imports: Goods',
             		parent: 'Imports',
-            		value: im_goods[0],
-            		//colorValue: 3
+            		value: im_goods[0]
             	},
             	{
             		id: 'Im_Services',
             		name: 'Imports: Services',
             		parent: 'Imports',
             		value: im_services[0],
-            		//colorValue: 3
+            		color: (function() {
+            			var new_color;
+            			if (this.value < 1000) {
+            				new_color = '#C8E6C9';
+            			}
+            			else if (this.value > 999 && this.value < 1501) {
+            				new_color = '#81C784';
+            			}
+            			else if (this.value > 1500 && this.value < 2001) {
+            				new_color = '#66BB6A';
+            			}
+            			else if (this.value > 2000 && this.value < 2501) {
+            				new_color = '#4CAF50';
+            			}
+            			else if (this.value > 2500 && this.value < 3501) {
+            				new_color = '#388E3C';
+            			}
+            			else {
+            				new_color = '#1B5E20';
+            			}
+            			return new_color;
+            		})
             	},
             	{
             		id: 'Govt_spending',
@@ -558,7 +576,30 @@ $('#tree_map').highcharts({
 
         title: {
             text: 'How does U.S Census Bureau data fit into the Bureau of Economic Analysis GDP Calculation?'
-        }
+        },
+
+        				function() {
+            			for (var i = 0; i < series.data.length ; i++)
+            			if (series.data[i].value < 1000) {
+            				series.data[i].color = '#C8E6C9';
+            			}
+            			else if (series.data[i].value > 999 && series.data[i].value < 1501) {
+            				series.data[i].color = '#81C784';
+            			}
+            			else if (series.data[i].value > 1500 && series.data[i].value < 2001) {
+            				series.data[i].color = '#66BB6A';
+            			}
+            			else if (series.data[i].value > 2000 && series.data[i].value < 2501) {
+            				series.data[i].color = '#4CAF50';
+            			}
+            			else if (series.data[i].value > 2500 && series.data[i].value < 3501) {
+            				series.data[i].color = '#388E3C';
+            			}
+            			else {
+            			    series.data[i].color = '#1B5E20';
+            			}
+            		}
+
     }); //tree map high charts close
 
 
