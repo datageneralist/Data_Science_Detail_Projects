@@ -262,8 +262,21 @@ $('#tree_map').highcharts({
     	//colors: {
  
     		//['#ff0000', '#78ff6c', '#15ff00', '#11d000', '#0d9f00'],
+    	legend: {
+                layout: 'vertical',
+                borderWidth: 0,
+                backgroundColor: 'rgba(255,255,255,0.85)',
+                floating: true,
+                //verticalAlign: 'bottom',
+                align: 'right',
+                x: 0,
+                y: -10
+            },
+
     	colorAxis: {
-    		stops: [
+    			minColor: '#ff0000',
+    			maxColor: '#1B5E20',
+    			stops: [
     			[0, '#ff0000'],
     			[0.3, '#78ff6c'],
     			[0.5, '#4CAF50'],
@@ -495,8 +508,8 @@ $('#tree_map').highcharts({
             		id: 'Im_Services',
             		name: 'Imports: Services',
             		parent: 'Imports',
-            		value: im_services[0],
-            		color: (function() {
+            		value: im_services[0]
+            		/*color: (function() {
             			var new_color;
             			if (this.value < 1000) {
             				new_color = '#C8E6C9';
@@ -517,7 +530,7 @@ $('#tree_map').highcharts({
             				new_color = '#1B5E20';
             			}
             			return new_color;
-            		})
+            		})*/
             	},
             	{
             		id: 'Govt_spending',
@@ -595,8 +608,11 @@ $('#tree_map').highcharts({
             			else if (series.data[i].value > 2500 && series.data[i].value < 3501) {
             				series.data[i].color = '#388E3C';
             			}
-            			else {
+            			else if (series.data[i].value > 3500) {
             			    series.data[i].color = '#1B5E20';
+            			}
+            			else {
+            				series.data[i].color = 'white';
             			}
             		}
 
@@ -623,19 +639,66 @@ $('#tree_map').highcharts({
         data.addColumn('string', 'From');
         data.addColumn('string', 'To');
         data.addColumn('number', 'Weight');
+        //data.addColumn(type: 'string', role: 'Style');
         data.addRows([
-          [ 'A', 'X', 5 ],
-          [ 'A', 'Y', 7 ],
-          [ 'A', 'Z', 6 ],
-          [ 'B', 'X', 2 ],
-          [ 'B', 'Y', 9 ],
-          [ 'B', 'Z', 4 ]
+        	//Level 5
+          [ 'Structures', 'Nonresidential Investment', 1/*, 'color: blue'*/],
+          [ 'Equipment', 'Nonresidential Investment', 2 ],
+          [ 'Intellectual Property', 'Nonresidential Investment', 1 ],
+          //Level 4
+          [ 'Durable Goods', 'Goods Consumed', 3 ],
+          [ 'Nondurable Goods', 'Goods Consumed', 3.5 ],
+          [ 'Nonresidential Investment', 'Fixed Investment', 3.5 ],
+          [ 'Residential Investment', 'Fixed Investment', 1 ],
+          [ 'Goods Exported', 'Exports', 2 ],
+          [ 'Services Exported', 'Exports', 1 ],
+          [ 'Goods Imported', 'Imports', 3 ],
+          [ 'Services Imported', 'Imports', 1 ],
+          [ 'National Defense', 'Federal', 1 ],
+          [ 'Nondefense', 'Federal', 1 ],
+          //Level 3
+          [ 'Goods Consumed', 'Personal Consumption Expenditures', 5.5 ],
+          [ 'Services Consumed', 'Personal Consumption Expenditures', 7 ],
+          [ 'Fixed Investment', 'Private Investment', 3 ],
+          [ 'Change in Private Inventories', 'Private Investment', .5 ],
+          [ 'Exports', 'Net Exports', 3 ],
+          [ 'Imports', 'Net Exports', 3 ],
+          [ 'Federal', 'Government Spending', 2 ],
+          [ 'State and Local', 'Government Spending', 2 ],
+          //Level 2
+          [ 'Personal Consumption Expenditures', 'GDP', 9 ],
+          [ 'Private Investment', 'GDP', 5 ],
+          [ 'Net Exports', 'GDP', -1 ],
+          [ 'Government Spending', 'GDP', 5 ]
+
         ]);
 
+        //var colors = blue;
+
+        /*function() {
+
+        }*/
         // Sets chart options.
         var options = {
-          width: 600,
-        };
+          width: 800,
+          sankey: {
+          	link: {
+          		//colorMode: 'gradient',
+          		//colors: colors
+        	node: {
+        		nodePadding: 5,
+        		label: { 
+        			fontName: 'Times-Roman',
+                         fontSize: 14,
+                         color: 'black',
+                         bold: true,
+                         italic: false 
+                     } 
+                 } 
+             },
+         },
+
+        }; //end options
 
         // Instantiates and draws our chart, passing in some options.
         var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
