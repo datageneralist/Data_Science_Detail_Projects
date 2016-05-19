@@ -92,26 +92,23 @@ $(document).ready(function(){
 
 
 var link_value = function(source_array, target_array, quarter) {
-  if (source_array = trade_exports) {
+  //console.log(source_array);
+  //console.log(trade_exports);
+  if (JSON.stringify(source_array) == JSON.stringify(trade_exports)) {
     return (source_array[quarter-1] / (source_array[quarter-1] + trade_imports[quarter-1])*10).toFixed(2);
   }
-  else if (source_array = trade_imports) {
+  else if (JSON.stringify(source_array) == JSON.stringify(trade_imports)) {
     return (source_array[quarter-1] / (source_array[quarter-1] + trade_exports[quarter-1])*10).toFixed(2);
   }
-  else if (source_array = net_exports) {
+  else if (JSON.stringify(source_array) == JSON.stringify(net_exports)) {
     return (source_array[quarter-1]*-1 / target_array[quarter-1]*10).toFixed(2);
   }
   else {
   return Math.round((source_array[quarter-1] / target_array[quarter-1]*10));
   }
+  //console.log("hello");
 };
 
-//alert(durable_goods[0]/goods[0]*10);
-//alert(Math.round(durable_goods[0]/goods[0]*10));
-//alert(link_value(durable_goods, goods, 1));
-//Round the widget values to see if that works
-alert(structures[0]/nonres_investment[0]*10);
-alert(govt_spending[0]/gdp[0]*10);
 
 // Start D3 Sankey utilizing Sankey.js
 
@@ -180,6 +177,8 @@ var link_array = [
             {"name": 'GDP'}
           ]; //ends name array
 
+
+//Call function inside links array for each element
 
 //D3 Code
 
