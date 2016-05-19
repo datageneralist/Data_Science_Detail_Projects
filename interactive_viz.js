@@ -33,12 +33,12 @@ $(document).ready(function(){
 				componentArray.push(dataArray[i].SeriesCode, dataArray[i].TimePeriod, dataArray[i].DataValue);
 
 			};
-
+/*
 			for (var i=0; i<componentArray.length; i+=3) {
 				$('body').append('<p>'+componentArray[i]+componentArray[i+1]+" "+componentArray[i+2]+'</p>');
 
 			};
-
+*/
 			var gdp = [];
 			var pce = [];
 			var goods = [];
@@ -110,158 +110,13 @@ $(document).ready(function(){
 // Tree Map
 
 $(function () {
-/* //Complicated Tree Map Code
-	var data = {
-		'GDP': {
-			'Personal Consumption Expenditures': {
-				'Goods': {
-					'Durable Goods': durable_goods[0],
-					'Nondurable Goods': nondurable_goods[0]
-				},
-				'Consumption: Services': c_services[0]
-			},
-			'Private Investment': {
-				'Fixed Investment': {
-					'Residential': residential[0],
-					'Non Residential': {
-						'Structures': structures[0],
-						'Equipment': equipment[0],
-						'IP_software': IP_software[0]
-					}
-				},
-				'Change in Private Inventories': change_privateinv[0],
-			},
-			'Net Exports': {
-				'Exports': {
-					'Exports: Goods': ex_goods[0],
-					'Exports: Services': ex_services[0]
-				},
-				'Imports': {
-					'Imports: Goods': im_goods[0],
-					'Imports: Services': im_services[0]	
-				}
-			},
-			'Govt Spending':{
-				'Federal': {
-					'National Defense': national_defense[0],
-					'Non Defense': non_defense[0]
-				},
-				'State and Local': state_local[0]
-			}
-		},
-	},
-	points = [],
-	level_1,
-	level_2,
-	level_3,
-	level_1P,
-	level_2P,
-	level_3P,
-	level_4P,
-	level_1I = 0,
-	level_2I,
-	level_3I,
-	level_4I
 
-for (level_1 in data) {
-        if (data.hasOwnProperty(level_1)) {
-            level_1P = {
-                id: 'id_' + level_1I,
-                name: level_1,
-                color: Highcharts.getOptions().colors[level_1I]
-
-            };
-            level_2I = 0;
-            for (level_2 in data[level_1]) {
-                if (data[level_1].hasOwnProperty(level_2)) {
-                    level_2P = {
-                        id: level_1P.id + '_' + level_2I,
-                        name: level_2,
-                        parent: level_1P.id,
- 	                    color: Highcharts.getOptions().colors[level_2I]
-
-                    };
-					//data.GDP['Net Exports'].value = 1000;
-                    points.push(level_2P);
-
-                    level_3I = 0;
-                    for (level_3 in data[level_1][level_2]) {
-                        if (data[level_1][level_2].hasOwnProperty(level_3)) {
-                            level_3P = {
-                                id: level_2P.id + '_' + level_3I,
-                                name: level_3,
-                                parent: level_2P.id,
-                                color: Highcharts.getOptions().colors[level_3I]
-                            };
-                            points.push(level_3P);
-                		
-                		level_4I = 0;               
-                    	for (level_4 in data[level_1][level_2][level_3]) {
-                    		if (data[level_1][level_2][level_3].hasOwnProperty(level_4)) {
-                            	level_4P = {
-                                	id: level_3P.id + '_' + level_4I,
-                                	name: level_4,
-                                	parent: level_3P.id,
-                                	color: Highcharts.getOptions().colors[level_4I]
-                            	};
-                            	points.push(level_4P);
-
-                            level_5I = 0;
-                    		for (level_5 in data[level_1][level_2][level_3][level_4]) {
-                    			if (data[level_1][level_2][level_3][level_4].hasOwnProperty(level_5)) {
-                            		level_5P = {
-                                		id: level_4P.id + '_' + level_5I,
-                                		name: level_5,
-                                		parent: level_4P.id,
-                                		color: Highcharts.getOptions().colors[level_5I]
-                            		};
-                            		points.push(level_5P);
-                            		level_5I += 1;
-                        		} //if level 5 
-                         		if (data[level_1][level_2][level_3][level_4][level_5] > 0) {
-                 				level_5P.value = data[level_1][level_2][level_3][level_4][level_5];
-                        		}
-                    		} //for level 5
-
-                            	level_4I += 1;
-                        	} //if level 4 
-                         	if (data[level_1][level_2][level_3][level_4] > 0) {
-                 			level_4P.value = data[level_1][level_2][level_3][level_4];
-                        	}
-                    	} //for level 4
-
-
-                    	level_3I +=1;
-                		} //if level 3 
-                	 	if (data[level_1][level_2][level_3] > 0) {
-                 		level_3P.value = data[level_1][level_2][level_3];
-                     	}
-                     } //for level 3
-                    level_2I += 1;
-                } //if level 2
-                if (data[level_1][level_2] > 0) {
-                 level_2P.value = data[level_1][level_2];
-                        }               
-
-
-
-            } //for level 2
-            points.push(level_1P);
-            level_1I += 1;
-
-            
-        }
-    }
-*/
 var Sources = {
 	'Net_Exports' : '<br/>' + 'Test 1' + '<br/>' + 'Test 2'
 };
 
 $('#tree_map').highcharts({
 
-    	//colors: {
- 
-    		//['#ff0000', '#78ff6c', '#15ff00', '#11d000', '#0d9f00'],
     	legend: {
                 layout: 'vertical',
                 borderWidth: 0,
@@ -509,28 +364,6 @@ $('#tree_map').highcharts({
             		name: 'Imports: Services',
             		parent: 'Imports',
             		value: im_services[0]
-            		/*color: (function() {
-            			var new_color;
-            			if (this.value < 1000) {
-            				new_color = '#C8E6C9';
-            			}
-            			else if (this.value > 999 && this.value < 1501) {
-            				new_color = '#81C784';
-            			}
-            			else if (this.value > 1500 && this.value < 2001) {
-            				new_color = '#66BB6A';
-            			}
-            			else if (this.value > 2000 && this.value < 2501) {
-            				new_color = '#4CAF50';
-            			}
-            			else if (this.value > 2500 && this.value < 3501) {
-            				new_color = '#388E3C';
-            			}
-            			else {
-            				new_color = '#1B5E20';
-            			}
-            			return new_color;
-            		})*/
             	},
             	{
             		id: 'Govt_spending',
@@ -647,8 +480,8 @@ $('#tree_map').highcharts({
           [ 'Intellectual Property', 'Nonresidential Investment', 1 ],
           //Level 4
           [ 'Durable Goods', 'Goods Consumed', 3 ],
-          [ 'Nondurable Goods', 'Goods Consumed', 3.5 ],
-          [ 'Nonresidential Investment', 'Fixed Investment', 3.5 ],
+          [ 'Nondurable Goods', 'Goods Consumed', "Value": 3.5 ],
+          [ 'Nonresidential Investment', 'Fixed Investment', "Value": 3.5 ],
           [ 'Residential Investment', 'Fixed Investment', 1 ],
           [ 'Goods Exported', 'Exports', 2 ],
           [ 'Services Exported', 'Exports', 1 ],
@@ -657,7 +490,7 @@ $('#tree_map').highcharts({
           [ 'National Defense', 'Federal', 1 ],
           [ 'Nondefense', 'Federal', 1 ],
           //Level 3
-          [ 'Goods Consumed', 'Personal Consumption Expenditures', 5.5 ],
+          [ 'Goods Consumed', 'Personal Consumption Expenditures', "Value": 5.5 ],
           [ 'Services Consumed', 'Personal Consumption Expenditures', 7 ],
           [ 'Fixed Investment', 'Private Investment', 3 ],
           [ 'Change in Private Inventories', 'Private Investment', .5 ],
@@ -703,11 +536,80 @@ $('#tree_map').highcharts({
         // Instantiates and draws our chart, passing in some options.
         var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
         chart.draw(data, options);
-      }
+      } // end function drawchart
 
 
 
+// Start D3 Sankey utilizing Sankey.js
 
+//Define the Sankey JSON//
+
+NIPA_Sankey_JSON = {
+        "links":
+            [
+        //Level 5
+          { "source":'Structures', "target":'Nonresidential Investment', "value": 1/*, 'color: blue'*/},
+          { "source":'Equipment', "target":'Nonresidential Investment', "value": 2 },
+          { "source":'Intellectual Property', "target":'Nonresidential Investment', "value": 1 },
+          //Level 4
+          { "source":'Durable Goods', "target":'Goods Consumed', "value": 3 },
+          { "source":'Nondurable Goods', "target":'Goods Consumed', "value": 3.5 },
+          { "source":'Nonresidential Investment', "target":'Fixed Investment', "value": 3.5 },
+          { "source":'Residential Investment', "target":'Fixed Investment', "value": 1 },
+          { "source":'Goods Exported', "target":'Exports', "value": 2 },
+          { "source":'Services Exported', "target":'Exports', "value": 1 },
+          { "source":'Goods Imported', "target":'Imports', "value": 3 },
+          { "source":'Services Imported', "target":'Imports', "value": 1 },
+          { "source":'National Defense', "target":'Federal', "value": 1 },
+          { "source":'Nondefense', "target":'Federal', "value": 1 },
+          //Level 3
+          { "source":'Goods Consumed', "target":'Personal Consumption Expenditures', "value": 5.5 },
+          { "source":'Services Consumed', "target":'Personal Consumption Expenditures', "value": 7 },
+          { "source":'Fixed Investment', "target":'Private Investment', "value": 3 },
+          { "source":'Change in Private Inventories', "target":'Private Investment', "value":.5 },
+          { "source":'Exports', "target":'Net Exports', "value": 3 },
+          { "source":'Imports', "target":'Net Exports', "value": 3 },
+          { "source":'Federal', "target":'Government Spending', "value": 2 },
+          { "source":'State and Local', "target":'Government Spending', "value": 2 },
+          //Level 2
+          { "source":'Personal Consumption Expenditures', "target":'GDP', "value": 9 },
+          { "source":'Private Investment', "target":'GDP', "value": 5 },
+          { "source":'Net Exports', "target":'GDP', "value": -1 },
+          { "source":'Government Spending', "target":'GDP', "value": 5 }
+
+          ]//ends link array,
+          "nodes": 
+          [
+            {"name": 'Structures'},
+            {"name": 'Equipment'},
+            {"name": 'Intellectual Property'},
+            {"name": 'Durable Goods'},
+            {"name": 'Nondurable Goods'},
+            {"name": 'Nonresidential Investment'},
+            {"name": 'Residential Investment'},
+            {"name": 'Goods Exported'},
+            {"name": 'Services Exported'},
+            {"name": 'Goods Imported'},
+            {"name": 'Services Imported'},
+            {"name": 'National Defense'},
+            {"name": 'Nondefense'},
+            {"name": 'Goods Consumed'},
+            {"name": 'Services Consumed'},
+            {"name": 'Fixed Investment'},
+            {"name": 'Fixed Investment'},
+            {"name": 'Change in Private Inventories'},
+            {"name": 'Exports'},
+            {"name": 'Imports'},
+            {"name": 'Federal'},
+            {"name": 'State and Local'},
+            {"name": 'Personal Consumption Expenditures'},
+            {"name": 'Private Investment'},
+            {"name": 'Net Exports'},
+            {"name": 'Government Spending'},
+            {"name": 'GDP'}
+          ] //ends nodes array
+
+}// end NIPA Sankey JSON
 
 
 
