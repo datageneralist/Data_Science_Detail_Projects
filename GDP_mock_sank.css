@@ -19,3 +19,16 @@
 .link:hover {
   stroke-opacity: .5;
 }
+
+/* HTML Table Properties */
+
+table {
+	border-collapse: collapse;
+}
+
+th,
+
+td {
+	border: 1px solid #cecfd5;
+	padding: 10px 15px;
+}

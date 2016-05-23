@@ -95,18 +95,27 @@ var link_value = function(source_array, target_array, quarter) {
   //console.log(source_array);
   //console.log(trade_exports);
   if (JSON.stringify(source_array) == JSON.stringify(trade_exports)) {
-    return (source_array[quarter-1] / (source_array[quarter-1] + trade_imports[quarter-1])*10).toFixed(2);
+    value = (source_array[quarter-1] / (source_array[quarter-1] + trade_imports[quarter-1])*10);
   }
   else if (JSON.stringify(source_array) == JSON.stringify(trade_imports)) {
-    return (source_array[quarter-1] / (source_array[quarter-1] + trade_exports[quarter-1])*10).toFixed(2);
+    value = (source_array[quarter-1] / (source_array[quarter-1] + trade_exports[quarter-1])*10);
   }
   else if (JSON.stringify(source_array) == JSON.stringify(net_exports)) {
-    return (source_array[quarter-1]*-1 / target_array[quarter-1]*10).toFixed(2);
+    value = (source_array[quarter-1]*-1 / target_array[quarter-1]*10).toFixed(2);
   }
   else {
-  return Math.round((source_array[quarter-1] / target_array[quarter-1]*10));
+  value = Math.round((source_array[quarter-1] / target_array[quarter-1]*10));
   }
-  //console.log("hello");
+  if (value >= 0 && value < 1) {
+    value = 1;
+    return value;
+  }
+  else if (value < 0) {
+    return Math.floor(value);
+  }
+  else {
+    return value;
+  }
 };
 
 
@@ -116,7 +125,41 @@ var link_value = function(source_array, target_array, quarter) {
 
 //link_value(structures, nonres_investment, 1)
 var link_array = [
-        //Level 5
+        /*//Level 6
+          {"source": "Census Monthly Retail Survey", "target":"Durable Goods" , "value": 4 },
+          {"source": "Other Government Sources", "target": "Durable Goods", "value": 4},
+          {"source": "Private/Trade Sources", "target": "Durable Goods", "value": 4},
+          {"source": "Bureau of Labor Statistics Price Data", "target": "Durable Goods", "value": 4},
+          {"source": "Census Monthly Retail Survey", "target":"Nondurable Goods" , "value": 4 },
+          {"source": "Other Government Sources", "target": "Nondurable Goods", "value": 4},
+          {"source": "Private/Trade Sources", "target": "Nondurable Goods", "value": 4},
+          {"source": "Bureau of Labor Statistics Price Data", "target": "Nondurable Goods", "value": 4},
+          {"source": "Census Quarterly Services Survey", "target":"Services Consumed" , "value": 4 },
+          {"source": "Other Government Sources", "target": "Services Consumed", "value": 4},
+          {"source": "Private/Trade Sources", "target": "Services Consumed", "value": 4},
+          {"source": "Bureau of Labor Statistics Price Data", "target": "Services Consumed", "value": 4},          
+          {"source": "Census Value of Construction Put in Place", "target": "Structures", "value": 4},
+          {"source": "Prices for Single-Family Houses Under Construction", "target": "Structures", "value": 4},
+          {"source": "American Petroleum Institute", "target": "Structures", "value": 4},
+           {"source": "Census Retail Sales", "target": "Structures", "value": 4},
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+          {"source": , "target": , "value": },
+
+
+          {}*/
+          //Level 5
           { "source":'Structures', "target":'Nonresidential Investment', "value": structures[0]/nonres_investment[0]*10},
           { "source":'Equipment', "target":'Nonresidential Investment', "value": link_value(equipment, nonres_investment, 1) },
           { "source":'Intellectual Property', "target":'Nonresidential Investment', "value": link_value(IP_software, nonres_investment, 1)},
@@ -149,6 +192,16 @@ var link_array = [
           ];//ends link array
 
     var name_array = [
+            /*{"name": "Census Monthly Retail Survey"},
+            {"name": "Other Government Sources"},
+            {"name": "Private/Trade Sources"},
+            {"name": "Census Quarterly Services Survey"},
+            {"name": "Bureau of Labor Statistics Price Data"},
+            {"name": "Census Value of Construction Put in Place"},
+            {"name": "Prices for Single-Family Houses Under Construction"},
+            {"name": "American Petroleum Institute"},
+            {"name": "Census Retail Sales"},
+            {"name": },   */         
             {"name": 'Structures'},
             {"name": 'Equipment'},
             {"name": 'Intellectual Property'},
