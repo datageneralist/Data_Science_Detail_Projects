@@ -5,31 +5,79 @@
             <meta charset="UTF-8">
 			<script src = "C:\Users\sfink\Documents\Commerce Data Service\GDP Data\user_id.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
             <script src="http://d3js.org/d3.v3.js"></script>
             <script src="sankey.js"></script>
             <script src="interactive_viz_sank.js"></script>
             <link rel="stylesheet" href="GDP_mock_sank.css">
+            <!-- Data table package: https://datatables.net/download/release -->
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/autofill/2.1.2/css/autoFill.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.0/css/buttons.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.3.2/css/colReorder.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.2/css/fixedColumns.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/keytable/2.1.2/css/keyTable.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.1.2/css/rowReorder.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/scroller/1.4.2/css/scroller.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css">
+            <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/autofill/2.1.2/js/dataTables.autoFill.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.0/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.0/js/buttons.colVis.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.0/js/buttons.flash.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.0/js/buttons.html5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.0/js/buttons.print.min.js"></script>
+            <script src="https://cdn.datatables.net/colreorder/1.3.2/js/dataTables.colReorder.min.js"></script>
+            <script src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
+            <script src="https://cdn.datatables.net/fixedheader/3.1.2/js/dataTables.fixedHeader.min.js"></script>
+            <script src="https://cdn.datatables.net/keytable/2.1.2/js/dataTables.keyTable.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+            <script src="https://cdn.datatables.net/rowreorder/1.1.2/js/dataTables.rowReorder.min.js"></script>
+            <script src="https://cdn.datatables.net/scroller/1.4.2/js/dataTables.scroller.min.js"></script>
+            <script src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+
 
 
       </head>
-
+				<!--<div id = "structures">-->
       <body>
       		<h2> What are the components of GDP? </h2>
             <div id="d3_sankey" ></div>
             <h2> GDP Input Sources of Data </h2>
-            <table>
-            	<tr>
-            		<th>Structures</th> <th>Equipment</th> <th> Intellectual Property </th>
-            	</tr>
-            	<tr>
-            		<td><a href = 'https://www.census.gov/construction/c30/c30index.html'>Census Value of Construction Put in Place</a></td>
-            		<td><a href = 'http://www.census.gov/econ/manufacturing.html'>Economic Census of Manufacturers</a></td>
-            		<td><a href = 'https://www.census.gov/services/index.html'>Census Services Annual Survey</a></td>
-            	</tr>
-            	<tr>
-            		<td><a href = 'https://www.census.gov/construction/nrc/index.html'>Prices for Single Family Houses Under Construction</a></td>
-            		<td><a href = 'http://www.census.gov/programs-surveys/asm/data/tables.html'>Annual Survey of Manufacturers</a></td>
-            		<td><a href = 'https://www.census.gov/services/index.html'>Census Quarterly Services Survey</a></td>
+            <table id = "example" class="display" cellspacing="0" width="100%">
+            	<thead>
+            		<tr>
+            			<th>Structures</th> <th>Equipment</th> <th> Intellectual Property </th>
+            		</tr>
+            	</thead>
+            	<tfoot>
+            		<tr>
+            			<th>Structures</th> <th>Equipment</th> <th> Intellectual Property </th>
+            		</tr>
+            	</tfoot>
+            	<tbody>
+            		<tr>
+            			<td><a href = 'https://www.census.gov/construction/c30/c30index.html'>Census Value of Construction Put in Place</a></td>
+            			<td><a href = 'http://www.census.gov/econ/manufacturing.html'>Economic Census of Manufacturers</a></td>
+            			<td><a href = 'https://www.census.gov/services/index.html'>Census Services Annual Survey</a></td>
+            		</tr>
+            		<tr>
+            			<td><a href = 'https://www.census.gov/construction/nrc/index.html'>Prices for Single Family Houses Under Construction</a></td>
+            			<td><a href = 'http://www.census.gov/programs-surveys/asm/data/tables.html'>Annual Survey of Manufacturers</a></td>
+            			<td><a href = 'https://www.census.gov/services/index.html'>Census Quarterly Services Survey</a></td>
+            		</tr>
+            		<tr>
+            			<td><a href = "http://www.api.org/products-and-services/statistics/reports-and-surveys">American Petroleum Institute</a></td>
+            			<td><a href = "http://www.census.gov/manufacturing/m3/index.html">Advance Report on Durable Goods Manufacturers (M3)</a></td>
+            			<td><a href = "http://www.bls.gov/oes/">BLS Employment Occupational Survey</a></td>
+            		</tr>
+            		<tr>
+            			<td><a href = "http://www.census.gov/retail/index.html">Census Retail Sales</a></td>
+            			<td><a href = "http://www.census.gov/foreign-trade/data/index.html">Census/BEA Trade Data</a></td>
+            			<td><a href = "http://www.census.gov/econ/census/">Economic Census</a></td>
+            		</tr>
+            	</tbody>
             </table>
       </body>
 

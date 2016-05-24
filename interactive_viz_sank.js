@@ -160,7 +160,7 @@ var link_array = [
 
           {}*/
           //Level 5
-          { "source":'Structures', "target":'Nonresidential Investment', "value": structures[0]/nonres_investment[0]*10},
+          { "source": 'Structures', "target":'Nonresidential Investment', "value": structures[0]/nonres_investment[0]*10},
           { "source":'Equipment', "target":'Nonresidential Investment', "value": link_value(equipment, nonres_investment, 1) },
           { "source":'Intellectual Property', "target":'Nonresidential Investment', "value": link_value(IP_software, nonres_investment, 1)},
           //Level 4
@@ -333,6 +333,7 @@ var path = sankey.link();
  
 // the function for moving the nodes
   function dragmove(d) {
+    console.log(this);
     d3.select(this).attr("transform", 
         "translate(" + (
                d.x = Math.max(0, Math.min(width - d.dx, d3.event.x))
@@ -342,6 +343,40 @@ var path = sankey.link();
     sankey.relayout();
     link.attr("d", path);
   }
+
+//Data Table Functionality 
+
+ /* $('#example').DataTable( {
+    buttons: [ 'colvis' ],
+            "scrollY": "200px",
+        "scrollCollapse": true,
+        "paging": false
+    } );
+
+new $.fn.dataTable.Buttons( table, {
+    buttons: [
+        {
+            extend: 'colvis',
+            columns: ':gt(0)'
+        }
+    ]
+} ); */
+
+/*Toggle Buttons to disable/enable column visibility 
+https://datatables.net/extensions/buttons/
+
+    var table = $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'columnsToggle'
+        ],
+        "scrollY": "200px",
+        "scrollCollapse": true,
+        "paging": false
+    } );
+*/
+
+//Create tabs for Data Table
 
 
       function api_test () {
