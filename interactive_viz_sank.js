@@ -91,6 +91,8 @@ $(document).ready(function(){
 
 
 
+//Start Sankey
+
 var link_value = function(source_array, target_array, quarter) {
   //console.log(source_array);
   //console.log(trade_exports);
@@ -124,9 +126,10 @@ var link_value = function(source_array, target_array, quarter) {
 //Define the Sankey JSON//
 
 //link_value(structures, nonres_investment, 1)
+
 var link_array = [
-        /*//Level 6
-          {"source": "Census Monthly Retail Survey", "target":"Durable Goods" , "value": 4 },
+        //Level 6 
+          /*{"source": "Census Monthly Retail Survey", "target":"Durable Goods" , "value": 4 },
           {"source": "Other Government Sources", "target": "Durable Goods", "value": 4},
           {"source": "Private/Trade Sources", "target": "Durable Goods", "value": 4},
           {"source": "Bureau of Labor Statistics Price Data", "target": "Durable Goods", "value": 4},
@@ -201,7 +204,7 @@ var link_array = [
             {"name": "Prices for Single-Family Houses Under Construction"},
             {"name": "American Petroleum Institute"},
             {"name": "Census Retail Sales"},
-            {"name": },   */         
+            {"name": },   */    
             {"name": 'Structures'},
             {"name": 'Equipment'},
             {"name": 'Intellectual Property'},
@@ -307,13 +310,13 @@ var path = sankey.link();
           this.parentNode.appendChild(this); })
       .on("drag", dragmove));
  
-// add the rectangles for the nodes
+ //add the rectangles for the nodes
   node.append("rect")
       .attr("height", function(d) { return d.dy; })
       .attr("width", sankey.nodeWidth())
       .style("fill", function(d) { 
           return d.color = color(d.name.replace(/ .*/, "")); })
-      .style("stroke", function(d) { 
+     .style("stroke", function(d) { 
           return d3.rgb(d.color).darker(2); })
     .append("title")
       .text(function(d) { 
@@ -344,45 +347,5 @@ var path = sankey.link();
     link.attr("d", path);
   }
 
-//Data Table Functionality 
-
- /* $('#example').DataTable( {
-    buttons: [ 'colvis' ],
-            "scrollY": "200px",
-        "scrollCollapse": true,
-        "paging": false
-    } );
-
-new $.fn.dataTable.Buttons( table, {
-    buttons: [
-        {
-            extend: 'colvis',
-            columns: ':gt(0)'
-        }
-    ]
-} ); */
-
-/*Toggle Buttons to disable/enable column visibility 
-https://datatables.net/extensions/buttons/
-
-    var table = $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'columnsToggle'
-        ],
-        "scrollY": "200px",
-        "scrollCollapse": true,
-        "paging": false
-    } );
-*/
-
-//Create tabs for Data Table
-
-
-      function api_test () {
-    };
-
-
-}); //done fct
-
-}); //doc ready
+});
+});
