@@ -371,26 +371,39 @@ var path = sankey.link();
 
 //Create tabs for Data Table using Bootstrap
 
-
-    $(".nav-tabs a").click(function(){
-        $(this).tab('show');
+/*
+    $(".btn-group a").click(function(){
+        $(this).btn('show');
     });
-    $('.nav-tabs a').on('show.bs.tab', function(){
+    $('.btn-group a').on('show.bs.dropdown', function(){
         //alert('The new tab is about to be shown.');
     });
-    $('.nav-tabs a').on('shown.bs.tab', function(){
+    $('.btn-group a').on('shown.bs.dropdown', function(){
         //alert('The new tab is now fully shown.');
     });
-    $('.nav-tabs a').on('hide.bs.tab', function(e){
+    $('.btn-group a').on('hide.bs.dropdown', function(e){
         //alert('The previous tab is about to be hidden.');
     });
-    $('.nav-tabs a').on('hidden.bs.tab', function(){
+    $('.btn-group a').on('hidden.bs.dropdown', function(){
         //alert('The previous tab is now fully hidden.');
     });
-
-
-
-
+*///dropdown as object
+    $('.btn-group').on('show.bs.dropdown', function(){
+    });
+    $('.btn-group').on('shown.bs.dropdown', function(){
+    });
+    $('.btn-group').on('hide.bs.dropdown', function(e){
+    });
+    $('.btn-group').on('hidden.bs.dropdown', function(){
+    });/*
+    //$('.container').hide();
+    $('.btn-group button').click(function(){
+        var target = "#" + $(this).data("target");
+        $(".container").not(target).hide();
+        $(target).show();
+    });
+*/
+/*
 
     $('table.table').DataTable( {
         //ajax:           '../ajax/data/arrays.txt',
@@ -407,7 +420,7 @@ var path = sankey.link();
     // Apply a search to the second table for the demo
     //$('#example2').DataTable().search( 'New York' ).draw();
 
-
+*/
 
 }); //done fct
 
