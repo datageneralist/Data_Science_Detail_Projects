@@ -388,14 +388,41 @@ var path = sankey.link();
         //alert('The previous tab is now fully hidden.');
     });
 *///dropdown as object
+//$('.nav-tabs').button()
+/*
+    $(".btn-group").click(function(){
+        $(this).button('show');
+    });
+
+*//*
+$('btn-group').click(function () {
+  $(this).show();
+});
+*/
+ $(".dropdown-toggle").dropdown();
+/*
+$('#Govt_3').click(function(e) {
+    alert('alerted');
+    e.preventDefault();// prevent the default anchor functionality
+});
+*/
+
+//This is default functionality (I think)
+/*
     $('.btn-group').on('show.bs.dropdown', function(){
+      alert('show dropdown');
     });
     $('.btn-group').on('shown.bs.dropdown', function(){
+      alert('dropdown shown');
     });
     $('.btn-group').on('hide.bs.dropdown', function(e){
+      alert('hide dropdown');
     });
     $('.btn-group').on('hidden.bs.dropdown', function(){
-    });/*
+      alert('it is hidden');
+    });
+*/
+/*
     //$('.container').hide();
     $('.btn-group button').click(function(){
         var target = "#" + $(this).data("target");
@@ -403,6 +430,8 @@ var path = sankey.link();
         $(target).show();
     });
 */
+
+
 /*
 
     $('table.table').DataTable( {
