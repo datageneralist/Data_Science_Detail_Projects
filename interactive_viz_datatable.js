@@ -7,19 +7,40 @@ $(document).ready(function(){
 //change IDs and classes for a tags and lis
 //http://stackoverflow.com/questions/1535331/how-to-hide-all-elements-except-one-using-jquery
 //https://api.jquery.com/visible-selector/
+//$('table').css('visibility', 'collapse');
+//$('div:not(.'+'btn-group)').css('visibility', 'hidden');
+$('table').hide();
+function Houdini() {
+  //$('table').css('visibility', 'collapse');
+  $('table').hide();
+};
 
   $('.btn-group .dropdown-menu a').click( function() {
+    //change href to desired id
+    Houdini();
+    var href = this.href;
+    var new_href = href.split('#');
+    var myID = new_href[1];
+    console.log(myID);
+    //Class/id attempt method
     //var myDiv = this.id;
     //console.log(myDiv);
-   // $('table:not(#this.id)').hide();
+    //$('table:not(#'+myDiv+')').hide();
+    //$('#'+ this.id).css('visibility', 'visible');
+    //$("'" + '.'+ this.id + "'").css('visibility', 'visible');
+    //$('#'+ this.id).addClass( "active" );
 
-   $("table").hide();
-   var myDiv = this.id;
-   $('#myDiv').appendTo('body');
+   //$("table").hide();
+   //var myDiv = this.id;
+   //$('#myDiv').appendTo('body');
   //console.log(this.id);
   //console.log('somethign click');
-  //$('.' + this.id).css('visibility', 'visible')
+  //$('div:not(.' + this.id +')').css('visibility', 'hidden');
+  //$('#' + myID).css('visibility', 'visible');
   //makeTablesDisappear();
+  //$('#' + myID).removeClass( "fade" );
+  //$('#' + myID).css('visibility', 'visible');
+  $('#' + myID).show();
 });
 
 
