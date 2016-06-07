@@ -21,18 +21,73 @@
 }
 
 /* HTML Table Properties */
+/*http://getbootstrap.com/javascript/#buttons
+https://datatables.net/reference/button/csv
+Add download button into csv format. Search button, sort. Datatables.net?
+Merge with Andrea */
 
-table {
-	border-collapse: collapse;
+th {
+	border: 1px solid #cecfd5;
+	font-size: 150%;
+
 }
-
-th,
 
 td {
 	border: 1px solid #cecfd5;
-	padding: 10px 15px;
 }
 
-.bs-example{
-    	margin: 20px;
+/* .Class  and #ID */
+
+.container{
+    	margin: 10px;
     }
+
+table {
+		margin: 10px;
+		position: relative;
+		/*border-collapse: collapse;*/
+}
+
+/* Round the corners of the tables */
+.table-curved {
+    border-collapse: separate;
+}
+.table-curved {
+    border: solid #000 2px;
+    border-radius: 8px;
+    border-left:0px;
+}
+.table-curved td, .table-curved th {
+    border-left: 2px solid #000;
+    border-top: 2px solid #000;
+}
+.table-curved th {
+    border-top: none;
+}
+.table-curved th:first-child {
+    border-radius: 8px 0 0 0;
+}
+.table-curved th:last-child {
+    border-radius: 0 8px 0 0;
+}
+.table-curved th:only-child{
+    border-radius: 8px 8px 0 0;
+}
+.table-curved tr:last-child td:first-child {
+    border-radius: 0 0 0 8px;
+}
+.table-curved tr:last-child td:last-child {
+    border-radius: 0 0 8px 0;
+}
+
+
+/*Change dropdown links to appear like normal text */
+.btn-group .dropdown-menu a {
+	color: black;
+	text-decoration: none;
+
+}
+.btn-group .dropdown-menu a:hover {
+    background-color: gray;
+    display: inline-block;
+}

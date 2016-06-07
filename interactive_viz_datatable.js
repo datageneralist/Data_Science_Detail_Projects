@@ -4,24 +4,35 @@
 $(document).ready(function(){
   
 //view-source:http://www.esa.doc.gov/cdac/meeting.html
-//change IDs and classes for a tags and lis
-//http://stackoverflow.com/questions/1535331/how-to-hide-all-elements-except-one-using-jquery
-//https://api.jquery.com/visible-selector/
 //$('table').css('visibility', 'collapse');
 //$('div:not(.'+'btn-group)').css('visibility', 'hidden');
 $('table').hide();
 function Houdini() {
   //$('table').css('visibility', 'collapse');
+  //Hide all tables
   $('table').hide();
 };
 
   $('.btn-group .dropdown-menu a').click( function() {
     //change href to desired id
+    //Hide all tables except the one the user clicked
     Houdini();
     var href = this.href;
     var new_href = href.split('#');
     var myID = new_href[1];
     console.log(myID);
+    $('#' + myID).show();
+
+    //Add a CSV, PDF, print button 
+    /*
+    $('#myTable').DataTable( {
+      buttons: [
+          'csv'
+      ]
+    });
+  */
+
+
     //Class/id attempt method
     //var myDiv = this.id;
     //console.log(myDiv);
@@ -40,7 +51,6 @@ function Houdini() {
   //makeTablesDisappear();
   //$('#' + myID).removeClass( "fade" );
   //$('#' + myID).css('visibility', 'visible');
-  $('#' + myID).show();
 });
 
 

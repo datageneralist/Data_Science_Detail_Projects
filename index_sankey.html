@@ -11,7 +11,15 @@
             <script src="interactive_viz_datatable.js"></script>
             <!--<script src="interactive_viz_sank.js"></script>-->
             <link rel="stylesheet" href="GDP_mock_sank.css">
-            <!-- Bootstrap Button -->
+            <!-- Datatables.net Functionality -->
+            <!-- Flash buttons and buttons -->
+            <!--
+            <script src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.flash.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
+            -->
+            
+            <!-- Bootstrap Buttons and Datatable -->
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -28,42 +36,7 @@
             <h2> GDP Input Sources of Data </h2>
            <!-- <table id = "example" class="table table-striped table-bordered" cellspacing="0" width="100%"> -->
 
-
-<!--<div class="container">-->
- <!-- nav nav-pills nav-tabs nav-justified-->
- <!--
-  <ul class="nav nav-pills nav-tabs">
-    <li class= "active"><a href="#Home" data-toggle= "tab">Home</a></li>
-    <li class = "dropdown">
-    <a class = "dropdown-toggle" data-toggle="dropdown" >Investment
-    <span class="caret"></span></a>
-    <ul class="dropdown-menu">
-    	<li><a href="#Investment_1"></a>First GDP Estimate</li>
-    	<li><a href="#Investment_2"></a>Second GDP Estimate</li>
-    	<li><a href="#Investment_3"></a>Third GDP Estimate</li>
-    	<li><a href="#Investment_4"></a>Revised GDP Estimate</li>
-    </ul>
-    <li class = "dropdown">
-    <a class = "dropdown-toggle" data-toggle="dropdown" > Government Spending
-    <span class="caret"></span></a>
-    <ul class="dropdown-menu">
-    	<li><a href="#Govt_1"></a>First GDP Estimate</li>
-    	<li><a href="#Govt_2"></a>Second GDP Estimate</li>
-    	<li><a href="#Govt_3"></a>Third GDP Estimate</li>
-    	<li><a href="#Govt_4"></a>Revised GDP Estimate</li>
-    </ul>
-     <li class = "dropdown">
-    <a class = "dropdown-toggle" data-toggle="dropdown" > Net Exports
-    <span class="caret"></span></a>
-    <ul class="dropdown-menu">
-    	<li><a href="#Trade_1"></a>First GDP Estimate</li>
-    	<li><a href="#Trade_2"></a>Second GDP Estimate</li>
-    	<li><a href="#Trade_3"></a>Third GDP Estimate</li>
-    	<li><a href="#Trade_4"></a>Revised GDP Estimate</li>
-    </ul>
-  </ul>
--->
-
+<!-- NIPA Source Data Table -->
 <div class="container">
     <form>
         <!--Default buttons with dropdown menu-->
@@ -79,7 +52,7 @@
         </div>
         <!--Primary buttons with dropdown menu-->
         <div class="btn-group">
-            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-haspopup='true' aria-expanded='false' id = "menu2">Govt <span class="caret"></span></span></button>
+            <button type="button" data-toggle="dropdown" class="btn btn-info dropdown-toggle" aria-haspopup='true' aria-expanded='false' id = "menu2">Govt <span class="caret"></span></span></button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
     			<a role = "menuitem" tabindex = "-1" href="#Govt_1"><li role="presentation">First GDP Estimate</li></a>
     			<a role = "menuitem" tabindex = "-1" href="#Govt_2"><li role="presentation">Second GDP Estimate</li></a>
@@ -90,7 +63,7 @@
         </div>
         <!--Info buttons with dropdown menu-->
         <div class="btn-group">
-             <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-haspopup='true' aria-expanded='false' id = "menu3">Net Exports <span class="caret"></span></span></button>
+             <button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-haspopup='true' aria-expanded='false' id = "menu3">Net Exports <span class="caret"></span></span></button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu3">
     			<a role = "menuitem" tabindex = "-1" href="#Trade_1"><li role="presentation">First GDP Estimate</li></a>
     			<a role = "menuitem" tabindex = "-1" href="#Trade_2"><li role="presentation">Second GDP Estimate</li></a>
@@ -101,7 +74,7 @@
         </div>
         <!--Success buttons with dropdown menu-->
         <div class="btn-group">
-            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-haspopup='true' aria-expanded='false' id = "menu4">Personal Consumption Expenditures <span class="caret"></span></span></button>
+            <button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle" aria-haspopup='true' aria-expanded='false' id = "menu4">Personal Consumption Expenditures <span class="caret"></span></span></button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu4">
     			<a role = "menuitem" tabindex = "-1" href="#PCE_1"><li role="presentation">First GDP Estimate</li></a>
     			<a role = "menuitem" tabindex = "-1" href="#PCE_2"><li role="presentation">Second GDP Estimate</li></a>
@@ -118,8 +91,7 @@
 
 
 
-
-			<table id = "Investment_3" class="tab-pane table-striped table-bordered" cellspacing="0" width="100%">          
+			<table id = "Investment_3" class="tab-pane table-striped table-curved table-hover" cellspacing="0" width="100%">          
 				<thead>
             		<tr>
             			<th>Structures</th> <th>Equipment</th> <th> Intellectual Property </th><th>Change in Private Inventories</th>
@@ -148,6 +120,7 @@
             			<td><a href = "http://www.census.gov/retail/index.html">Census Retail Sales</a></td>
             			<td><a href = "http://www.census.gov/foreign-trade/data/index.html">Census/BEA Trade Data</a></td>
             			<td><a href = "http://www.census.gov/econ/census/">Economic Census</a></td>
+            			<td><a href = 'https://www.census.gov/services/index.html'>Census Services Quarterly and Annual Surveys</a></td>
             		</tr>
             		<tr>
             			<td></td>
@@ -173,16 +146,10 @@
             			<td>BLS Current Employment Statistics</td>
             			<td><a href="http://www.census.gov/econ/qfr/">Quarterly Financial Report</a></td>
             		</tr>
-            		<tr>
-            			<td></td>
-            			<td></td>
-            			<td></td>
-            			<td><a href = 'https://www.census.gov/services/index.html'>Census Services Quarterly and Annual Surveys</a></td>
-            		</tr>
             	</tbody>
             </table>
             <!-- table table-striped table-bordered -->
-            <table id = "Govt_3" class="tab-pane table-striped table-bordered" cellspacing="0" width="100%">
+            <table id = "Govt_3" class="tab-pane table-striped table-curved table-hover" cellspacing="0" width="100%">
             	<thead>
             		<tr>
             			<th>State and Local</th> <th>Federal</th>
@@ -219,7 +186,7 @@
             		</tr>
             	</tbody>
             </table>
-            <table id = "Trade_3" class="tab-pane table-striped table-bordered" cellspacing="0" width="100%">
+            <table id = "Trade_3" class="tab-pane table-striped table-curved table-hover" cellspacing="0" width="100%">
             	<thead>
             		<tr>
             			<th> Net Exports</th>
