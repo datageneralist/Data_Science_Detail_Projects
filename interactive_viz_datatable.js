@@ -1,91 +1,158 @@
 //getKey();
 //var api_url = "http://www.bea.gov/api/data?&UserID="+user_id+"&method=GetData&DataSetName=NIPA&Year=2014&ShowMillionsID=N&TableID=5&Frequency=Q&ResultFormat=json&jsonp=api_test";
 
+
+
+// https://datatables.net/reference/option/retrieve
+//https://datatables.net/manual/tech-notes/3
+
 $(document).ready(function(){
   
 //view-source:http://www.esa.doc.gov/cdac/meeting.html
 //$('table').css('visibility', 'collapse');
 //$('div:not(.'+'btn-group)').css('visibility', 'hidden');
-$('table').hide();
+/*
+ 
+new $.fn.dataTable.Buttons( Dtable, {
+    buttons: [
+        'csv'
+    ]
+} );
+  
+  */
+
+
+//$('table').hide();
+//$('table').DataTable().hide();
+
+
 function Houdini() {
   //$('table').css('visibility', 'collapse');
   //Hide all tables
   $('table').hide();
 };
 
+
   $('.btn-group .dropdown-menu a').click( function() {
     //change href to desired id
     //Hide all tables except the one the user clicked
-    Houdini();
+    //Houdini();
     var href = this.href;
     var new_href = href.split('#');
     var myID = new_href[1];
-    console.log(myID);
-    $('#' + myID).show();
+    console.log('#' + myID);
+    var type = typeof myID;
+    console.log(type);
 
-    //Add a CSV, PDF, print button 
-    /*
-    $('#myTable').DataTable( {
-      buttons: [
+
+
+
+  var table = $('#' + myID).DataTable( {
+        "scrollY": "200px",
+        "paginate": false,
+        paging: false,
+        buttons: [
           'csv'
-      ]
-    });
-  */
+        ]
+    }); 
 
+//https://datatables.net/manual/tech-notes/3
 
-    //Class/id attempt method
-    //var myDiv = this.id;
-    //console.log(myDiv);
-    //$('table:not(#'+myDiv+')').hide();
-    //$('#'+ this.id).css('visibility', 'visible');
-    //$("'" + '.'+ this.id + "'").css('visibility', 'visible');
-    //$('#'+ this.id).addClass( "active" );
-
-   //$("table").hide();
-   //var myDiv = this.id;
-   //$('#myDiv').appendTo('body');
-  //console.log(this.id);
-  //console.log('somethign click');
-  //$('div:not(.' + this.id +')').css('visibility', 'hidden');
-  //$('#' + myID).css('visibility', 'visible');
-  //makeTablesDisappear();
-  //$('#' + myID).removeClass( "fade" );
-  //$('#' + myID).css('visibility', 'visible');
+$('.container').children('table').each(function () {
+    var table = this.table;
+    table.destroy();
 });
+/*
 
+if ( $.fn.dataTable.isDataTable( '#' + myID ) ) {
+    table.destroy();
+    table = $('#' + myID).DataTable( {
+      "scrollY": "200px",
+        "paginate": false,
+        paging: false,
+        buttons: [
+          'csv'
+        ],
+        retrieve: true
+    });
+}
+else {
+    table = $('#' + myID).DataTable( {
+      "scrollY": "200px",
+        "paginate": false,
+        paging: false,
+        buttons: [
+          'csv'
+        ],
+        retrieve: true
+    });
+}
 
-//Data Table Functionality 
+*/
+/*$( table.table().node() )
+    //.addClass( 'highlight' ),
+    //.removeClass('fade');
+    .addClass('active'); */
+ 
+/*new $.fn.dataTable.Buttons( table, {
+    buttons: [
+        'csv'
+    ]
+} );
+ */
+ /*table.buttons().container().hide();
 
-//Old code to create tabs from Datatables.net
-
-  /*
-    $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-        //$.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-        $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
-
-    } );
+table.buttons().container()
+    .appendTo( $('.col-sm-6:eq(0)', table.table().container() ));
 
 */
 
+
+    //$('#' + myID).show();
+
+    //Add a CSV, PDF, print button 
+    //var table1 = 
+    //Adds filter and buttons on every click. Need to clear those each click?
+/*
+    $('#' + myID).DataTable({
+      destroy: true,
+      dom: 'Bf',
+      buttons: [
+        'csv'
+    ]
+  });
+*/
+    //table.destroy();
+    //initTable();
+    //table;
+    //$('#' + myID).toggle();
+    /*
+    var table = $('#' + myID).DataTable( {
+    buttons: [
+        'csv'
+    ]
+} );
+    table.destroy();
+    $(this).toggle();
+    table.buttons().container()
+      .appendTo( $('.col-sm-6:eq(0)', table.table().container() ) );
+*/
+
+    //$('#' + myID).DataTable('show');
+
+    //$('#' + myID).show();
+
+    //$(table1).show();  
+
+
+}); //click function
+
+
+
+
 //Create tabs for Data Table using Bootstrap
 
-/*
-    $(".btn-group a").click(function(){
-        $(this).btn('show');
-    });
-    $('.btn-group a').on('show.bs.dropdown', function(){
-        //alert('The new tab is about to be shown.');
-    });
-    $('.btn-group a').on('shown.bs.dropdown', function(){
-        //alert('The new tab is now fully shown.');
-    });
-    $('.btn-group a').on('hide.bs.dropdown', function(e){
-        //alert('The previous tab is about to be hidden.');
-    });
-    $('.btn-group a').on('hidden.bs.dropdown', function(){
-        //alert('The previous tab is now fully hidden.');
-    });
-*///dropdown as object
+
 //$('.nav-tabs').button()
 /*
     $(".btn-group").click(function(){
@@ -108,59 +175,11 @@ $('btn-group').click(function () {
 
 */
  //$(".dropdown-toggle").dropdown();
-/* Move li inside a tag. COnsole.log this href on that li.
-btn group dropdown-menu li is reference. This.href  
-
-$('#Govt_3').click(function(e) {
-    alert('alerted');
-    e.preventDefault();// prevent the default anchor functionality
-
-});
 
 
-//This is default functionality (I think)
-/*
-    $('.btn-group').on('show.bs.dropdown', function(){
-      alert('show dropdown');
-    });
-    $('.btn-group').on('shown.bs.dropdown', function(){
-      alert('dropdown shown');
-    });
-    $('.btn-group').on('hide.bs.dropdown', function(e){
-      alert('hide dropdown');
-    });
-    $('.btn-group').on('hidden.bs.dropdown', function(){
-      alert('it is hidden');
-    });
-*/
-/*
-    //$('.container').hide();
-    $('.btn-group button').click(function(){
-        var target = "#" + $(this).data("target");
-        $(".container").not(target).hide();
-        $(target).show();
-    });
-*/
 
 
-/*
 
-    $('table.table').DataTable( {
-        //ajax:           '../ajax/data/arrays.txt',
-        dom: 'Bfrtip',
-        buttons: [
-            'colvis','copy', 'csv'//, 'print', 'pdf','columnsToggle',
-        ],
-        //buttons: true,
-        scrollY:        200,
-        scrollCollapse: true,
-        paging:         false
-    } );
- 
-    // Apply a search to the second table for the demo
-    //$('#example2').DataTable().search( 'New York' ).draw();
-
-*/
 
 //}); //done fct
 

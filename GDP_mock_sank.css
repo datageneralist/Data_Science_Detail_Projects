@@ -53,13 +53,13 @@ table {
     border-collapse: separate;
 }
 .table-curved {
-    border: solid #000 2px;
-    border-radius: 8px;
+    border: solid #7e7e7e 2px;
+    border-radius: 4px;
     border-left:0px;
 }
 .table-curved td, .table-curved th {
-    border-left: 2px solid #000;
-    border-top: 2px solid #000;
+    border-left: 2px solid #7e7e7e;
+    border-top: 2px solid #7e7e7e;
 }
 .table-curved th {
     border-top: none;
