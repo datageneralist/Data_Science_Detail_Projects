@@ -28,14 +28,14 @@ Merge with Andrea */
 
 th {
 	border: 1px solid #cecfd5;
-	font-size: 150%;
+	font-size: 125%;
 
 }
-
+/*
 td {
 	border: 1px solid #cecfd5;
 }
-
+*/
 /* .Class  and #ID */
 
 .container{
@@ -90,4 +90,9 @@ table {
 .btn-group .dropdown-menu a:hover {
     background-color: gray;
     display: inline-block;
+}
+
+.dataTables_wrapper .dt-buttons {
+  float: right;
+  margin-right: 1%;
 }

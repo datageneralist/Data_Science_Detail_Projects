@@ -5,6 +5,8 @@
 
 // https://datatables.net/reference/option/retrieve
 //https://datatables.net/manual/tech-notes/3
+//https://datatables.net/examples/basic_init/multiple_tables.html
+//https://datatables.net/examples/api/tabs_and_scrolling.html
 
 $(document).ready(function(){
   
@@ -20,8 +22,11 @@ new $.fn.dataTable.Buttons( Dtable, {
 } );
   
   */
-
-
+/*
+for (divID =100; divID < 104; divID++) {
+    $('#' + divID).hide();
+};
+*/
 //$('table').hide();
 //$('table').DataTable().hide();
 
@@ -43,11 +48,87 @@ function Houdini() {
     console.log('#' + myID);
     var type = typeof myID;
     console.log(type);
+    //$('#' + myID).show();
+      //$(this).parent('div').removeClass('hide');
+     //$(this).parent('div').addClass('active');
+     /*
+     if  $('#' + myID).parent('div').hasClass('hide') {
+        $('#' + myID).parent('div').removeClass('hide');
+        $('#' + myID).parent('div').addClass('active');
+     }
+*/
+     for (var divID = 100; divID < 104; divID++) {
+        $('#' + divID).removeClass('active');
+        $('#' + divID).removeClass('hide');
+        $('#' + divID).addClass('hide');
+     };
+
+    if ($('#' + myID).parent('div').hasClass("active")) {
+    }
+    else {
+     $('#' + myID).parent('div').removeClass('hide');
+     $('#' + myID).parent('div').addClass('active');
+   };
+
+//var table = $('#' + myID).DataTable();
+
+    var table = $('#' + myID).DataTable( {
+      "scrollY": "200px",
+        "paginate": false,
+        paging: false,
+        dom: 'lfBrtip',
+        buttons: [
+          'csv'
+        ]
+    });
+
+
+
+/*
+var tableTools = new $.fn.dataTable.TableTools( table, {
+        "buttons": [
+            "csv"
+        ]
+    } );
+      
+    $( tableTools.fnContainer() ).insertAfter('table');
+*/
+// "dom": '<"top"i>rt<"bottom"flp><"clear">'
+/*
+    new $.fn.dataTable.Buttons( table, {
+      name: 'commands',
+      buttons: [ 'csv']
+    } );
+ */
+ var ID_parent = $('#' + myID).parent('div');
+  table.buttons( 0, null ).containers().insertAfter(ID_parent);
+    //$(bob).parent('div').show();
+    //$('#' + myID).parent('div').show();
+    //$(this).parent('div').show();
 
 
 
 
-  var table = $('#' + myID).DataTable( {
+
+
+/*
+$('table').each(function () {
+    //alert('hello');
+    //var table = this.table;
+    //alert(this.id);
+    tableID = this.id;
+    //this.destroy();
+    //var table = $('#' + myID).DataTable();
+    //var temp = this;
+    //temp.destroy();
+    var table1 = $('#' + tableID).DataTable();
+    table1.destroy();
+    table = $('#' + myID).DataTable();
+    //$('table1').display();
+});
+*/
+/*
+var table = $('#' + myID).DataTable( {
         "scrollY": "200px",
         "paginate": false,
         paging: false,
@@ -55,13 +136,13 @@ function Houdini() {
           'csv'
         ]
     }); 
+*/
+//$('table.display').DataTable();
 
 //https://datatables.net/manual/tech-notes/3
 
-$('.container').children('table').each(function () {
-    var table = this.table;
-    table.destroy();
-});
+
+
 /*
 
 if ( $.fn.dataTable.isDataTable( '#' + myID ) ) {
@@ -108,7 +189,6 @@ table.buttons().container()
 */
 
 
-    //$('#' + myID).show();
 
     //Add a CSV, PDF, print button 
     //var table1 = 
