@@ -37,7 +37,15 @@ function Houdini() {
   $('table').hide();
 };
 
+/*
+     for (var divID = 100; divID < 104; divID++) {
+        $('#' + divID).removeClass('active');
+        $('#' + divID).removeClass('hide');
+        $('#' + divID).addClass('hide');
 
+     };
+
+*/
   $('.btn-group .dropdown-menu a').click( function() {
     //change href to desired id
     //Hide all tables except the one the user clicked
@@ -57,21 +65,56 @@ function Houdini() {
         $('#' + myID).parent('div').addClass('active');
      }
 */
-     for (var divID = 100; divID < 104; divID++) {
-        $('#' + divID).removeClass('active');
-        $('#' + divID).removeClass('hide');
-        $('#' + divID).addClass('hide');
-     };
+      if ( ! $.fn.DataTable.isDataTable( '#' + myID ) ) {
+        $('#' + myID).dataTable( {
+          "scrollY": "200px",
+        "paginate": false,
+        paging: false,
+        dom: 'lfBrtip',
+        buttons: [
+          'csv'
+        ]
+    });
+    }; 
 
+
+    $('table').not('#' + myID).dataTable().fnDestroy();
+
+    $('table').not('#' + myID).parent('div').removeClass('active');
+    $('table').not('#' + myID).parent('div').removeClass('hide');
+    $('table').not('#' + myID).parent('div').addClass('hide');
+
+    $('#' + myID).parent('div').removeClass('hide');
+    $('#' + myID).parent('div').addClass('active');
+
+/*
     if ($('#' + myID).parent('div').hasClass("active")) {
+
+        $('#' + myID).parent('div').removeClass('hide');
+
     }
     else {
      $('#' + myID).parent('div').removeClass('hide');
      $('#' + myID).parent('div').addClass('active');
+
    };
+*/
+  //var table = $('#' + myID).DataTable();
 
-//var table = $('#' + myID).DataTable();
+    //$('#' + myID).dataTable().fnDestroy();
 
+    //$('table').dataTable().fnDestroy();
+
+
+
+
+        //$('div').not('#myid');
+        //$('div:not(#myid)');
+
+
+        //var ID_parent = $('#' + myID).parent('div');
+       //table.buttons(0, null).containers().insertAfter(ID_parent);
+/*
     var table = $('#' + myID).DataTable( {
       "scrollY": "200px",
         "paginate": false,
@@ -81,7 +124,7 @@ function Houdini() {
           'csv'
         ]
     });
-
+*/
 
 
 /*
@@ -100,8 +143,19 @@ var tableTools = new $.fn.dataTable.TableTools( table, {
       buttons: [ 'csv']
     } );
  */
- var ID_parent = $('#' + myID).parent('div');
-  table.buttons( 0, null ).containers().insertAfter(ID_parent);
+
+
+
+
+ 
+ 
+
+  
+
+
+
+
+
     //$(bob).parent('div').show();
     //$('#' + myID).parent('div').show();
     //$(this).parent('div').show();
